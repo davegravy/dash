@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="20c22f85-e2c8-435b-86a9-76ccc349304d" name="AWS-arms-proxy" url="http://10.0.1.26">
+        <fileTransfer host="10.0.1.26" port="22" privateKey="C:\Users\dgrant\Desktop\arms-tunnel.ppk" rootFolder="/home/ubuntu/" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

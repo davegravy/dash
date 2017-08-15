@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="240380cd-8153-4da5-b023-39dff6a11160" name="Default" comment="" />
+    <ignored path="arms-proxy.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="arms-proxy" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="30" lean-forward="false" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>transition</find>
+      <find>user</find>
+      <find>role</find>
+      <find>ARMS-</find>
+      <find>verif</find>
+      <find>ver</find>
+      <find>getdecoded</find>
+      <find>getroles</find>
+      <find>verifytoken2</find>
+      <find>verifytoken</find>
+      <find>$q</find>
+      <find>alert</find>
+      <find>getsess</find>
+      <find>getSessions Error</find>
+      <find>getsession</find>
+      <find>var</find>
+      <find>.factory('cognito</find>
+      <find>factory</find>
+      <find>formda</find>
+      <find>successfull - n</find>
+      <find>SUCCESSFUL</find>
+      <find>success</find>
+      <find>navigation</find>
+      <find>sidebar</find>
+      <find>successfull</find>
+      <find>cognitoUser</find>
+      <find>userPool</find>
+      <find>10.0.1.26</find>
+      <find>d</find>
+      <find>dash</find>
+    </findStrings>
+    <dirStrings>
+      <dir>C:\Source\arms-proxy\www\limit-test</dir>
+      <dir>C:\SourceGit\dash</dir>
+    </dirStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/www/nvm.html" />
+        <option value="$PROJECT_DIR$/www/common.js" />
+        <option value="$PROJECT_DIR$/www/gentelella/production/index4.html" />
+        <option value="$PROJECT_DIR$/www/gentelella/build/js/custom.js" />
+        <option value="$PROJECT_DIR$/www/gentelella/production/index.html" />
+        <option value="$PROJECT_DIR$/www/index.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/login_advanced_temp.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/main_body.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/core/libraries/ui-router-ng2.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/core/libraries/angular.min.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/temp.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/main_navbar.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/main_content.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/layout.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/partial-main.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/core/libraries/angular-ui-router.min.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/partial-monitor.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/pages/nvm.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/partial-error_403.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/index2.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/plugins/auth/core.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/temp.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/partial-navbar.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/core/app.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/factories/monitorManager.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/pages/monitorController.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/pages/navbarController.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/index.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/partial-landing.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/app.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/partial-dashboard.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/core/limitless-app.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/main_sidebar.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/pages/sidebarController.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/login_advanced.html" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/pages/loginController.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/factories/cognito.js" />
+        <option value="$PROJECT_DIR$/www/limit-test/assets/js/factories/authorization.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <exe-path />
+    <config-path />
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>false</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>false</other-services-enabled>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="60" />
+    <option name="width" value="1867" />
+    <option name="height" value="1055" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dash" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dash" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dash" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dash" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/www" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="JavaScriptPreferStrict" value="false" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\SourceGit\" />
+      <recent name="C:\SourceGit\fes-proxy2\arms-proxy\www\" />
+      <recent name="C:\Source\arms-proxy\www\limit-test\assets\js" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Source\arms-proxy\www\limit-test" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.index.html">
+    <configuration default="false" name="nvm.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://10.0.1.189/www/nvm.html">
+      <method />
+    </configuration>
+    <configuration default="false" name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://10.0.1.26/index.html">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhoneGap" factoryName="PhoneGap/Cordova">
+      <option name="myExecutable" />
+      <option name="myWorkDir" />
+      <option name="myCommand" />
+      <option name="myPassParent" value="true" />
+      <option name="myPlatform" />
+      <option name="myExtraArgs" />
+      <option name="hasTarget" value="false" />
+      <option name="target" />
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.nvm.html" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+    </list>
+    <recent_temporary>
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.nvm.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="240380cd-8153-4da5-b023-39dff6a11160" name="Default" comment="" />
+      <created>1476327991175</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1476327991175</updated>
+      <workItem from="1476327993242" duration="15083000" />
+      <workItem from="1490569381293" duration="35000" />
+      <workItem from="1490569544561" duration="7000" />
+      <workItem from="1490622868471" duration="20000" />
+      <workItem from="1490622920927" duration="108000" />
+      <workItem from="1490623099328" duration="18000" />
+      <workItem from="1490635772333" duration="80000" />
+      <workItem from="1490635860606" duration="22499000" />
+      <workItem from="1490889115973" duration="10000" />
+      <workItem from="1490891485482" duration="668000" />
+      <workItem from="1490969096257" duration="128000" />
+      <workItem from="1492089658210" duration="53781000" />
+      <workItem from="1492479489058" duration="224000" />
+      <workItem from="1492481471345" duration="162603000" />
+      <workItem from="1493329487507" duration="862000" />
+      <workItem from="1493345420756" duration="14978000" />
+      <workItem from="1498246962001" duration="936000" />
+      <workItem from="1502395509396" duration="1479000" />
+      <workItem from="1502809547879" duration="187000" />
+      <workItem from="1502809746266" duration="3253000" />
+      <workItem from="1502813095322" duration="667000" />
+      <workItem from="1502813848358" duration="182000" />
+      <workItem from="1502814040832" duration="172000" />
+      <workItem from="1502814227772" duration="27000" />
+      <workItem from="1502814267331" duration="24000" />
+      <workItem from="1502816702911" duration="162000" />
+      <workItem from="1502816915846" duration="1596000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="279789000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="60" y="0" width="1867" height="1055" extended-state="0" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19989195" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1005291" sideWeight="0.5018909" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26031747" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1005291" sideWeight="0.49810913" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.49810913" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/www/common.js" />
+    <entry file="file://$PROJECT_DIR$/www/morley.csv" />
+    <entry file="file://$PROJECT_DIR$/www/nvm.html" />
+    <entry file="file://$PROJECT_DIR$/www/gentelella/production/plain_page.html" />
+    <entry file="file://$PROJECT_DIR$/www/gentelella/production/index4.html" />
+    <entry file="file://$PROJECT_DIR$/www/gentelella/build/js/custom.min.js" />
+    <entry file="file://$PROJECT_DIR$/www/gentelella/build/js/custom.js" />
+    <entry file="file://$PROJECT_DIR$/www/gentelella/production/index.html" />
+    <entry file="file://$PROJECT_DIR$/www/limitless_1.5/layout_1/LTR/default/assets/js/core/app.js" />
+    <entry file="file://$PROJECT_DIR$/www/limitless_1.5/layout_1/LTR/default/alpaca_basic.html" />
+    <entry file="file://$PROJECT_DIR$/www/limitless_1.5/layout_1/LTR/default/index.html" />
+    <entry file="file://$PROJECT_DIR$/www/common.js" />
+    <entry file="file://C:/dash/www/login_advanced_temp.html" />
+    <entry file="file://$PROJECT_DIR$/www/limit-test/temp.html" />
+    <entry file="file://C:/dash/www/assets/js/core/libraries/angular.min.js" />
+    <entry file="file://C:/dash/www/index.html" />
+    <entry file="file://C:/dash/www/main_content.html" />
+    <entry file="file://C:/dash/www/main_body.html" />
+    <entry file="file://C:/dash/www/assets/js/core/libraries/angular-ui-router.min.js" />
+    <entry file="file://C:/dash/www/assets/js/pages/nvm.js" />
+    <entry file="file://C:/dash/www/assets/css/icons/icomoon/styles.css" />
+    <entry file="file://C:/dash/www/assets/css/bootstrap.css" />
+    <entry file="file://C:/dash/www/assets/css/core.css" />
+    <entry file="file://C:/dash/www/assets/css/components.css" />
+    <entry file="file://C:/dash/www/partial-error_403.html" />
+    <entry file="file://C:/dash/www/assets/js/plugins/auth/core.js" />
+    <entry file="file://C:/dash/www/assets/images/logo_icon_dark.png" />
+    <entry file="file://C:/dash/www/assets/images/logo_icon_light.png" />
+    <entry file="file://C:/dash/www/assets/images/Aercoustics-LogoReverse.jpg" />
+    <entry file="file://C:/dash/www/assets/images/logo_light.png" />
+    <entry file="file://C:/dash/www/assets/images/Aercoustics-LogoReverse.png" />
+    <entry file="file://$PROJECT_DIR$/www/limit-test/assets/js/temp.js" />
+    <entry file="file://C:/dash/www/main_navbar.html" />
+    <entry file="file://C:/dash/www/partial-navbar.html" />
+    <entry file="file://C:/dash/www/assets/js/pages/navbarController.js" />
+    <entry file="file://C:/dash/www/assets/js/factories/monitorManager.js" />
+    <entry file="file://C:/dash/www/partial-monitor.html" />
+    <entry file="file://C:/dash/www/partial-dashboard.html" />
+    <entry file="file://C:/dash/www/partial-main.html" />
+    <entry file="file://C:/dash/www/assets/js/pages/monitorController.js" />
+    <entry file="file://C:/dash/www/assets/js/app.js" />
+    <entry file="file://C:/dash/www/main_sidebar.html" />
+    <entry file="file://C:/dash/www/assets/js/pages/sidebarController.js" />
+    <entry file="file://C:/dash/www/login_advanced.html" />
+    <entry file="file://C:/dash/www/assets/js/pages/loginController.js" />
+    <entry file="file://C:/dash/www/assets/js/core/limitless-app.js" />
+    <entry file="file://C:/dash/www/index2.html" />
+    <entry file="file://C:/dash/www/assets/js/factories/authorization.js" />
+    <entry file="file://C:/dash/www/assets/js/factories/cognito.js" />
+    <entry file="file://C:/dash/www/index.html" />
+    <entry file="file://$PROJECT_DIR$/www/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="30" lean-forward="false" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="hg4idea.settings">
+    <option name="CHECK_INCOMING_OUTGOING" value="true" />
+    <option name="RECENT_HG_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+</project>

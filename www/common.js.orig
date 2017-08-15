@@ -1,0 +1,202 @@
+/**
+ * Created by dgrant on 5/7/15.
+ */
+var proxyHostName = location.host;
+var proxyPort = 443;
+
+var pollingInterval = 1000;
+
+var device_id;
+
+/*var sampleRate; //cRIO instrument settings
+var monitorState; //various*/
+
+/*var date; //cRIO status
+var voltage; //webrelay diagnostic*/
+
+
+
+var tbIpAddress;
+
+var options = {
+    translation: {
+        'Z': {
+            pattern: /[0-9]/, optional: true
+        }
+    },
+    onChange: function() {
+        $('#btnSubmitIP').attr("disabled",false);
+    }
+};
+
+// $.ajaxSetup({
+//      timeout: 2000 //Time in milliseconds
+//  });
+
+$(function() {
+    $('#ip').mask('0ZZ.0ZZ.0ZZ.0ZZ', options);
+});
+
+function common_init() {
+
+    var device_id_Param = getUrlParameter('device_id');
+    if (device_id_Param !== undefined) {
+//        $('#ip').val(ipParam);
+//        SetIP();
+        device_id=device_id_Param;
+    }
+
+    $("#loginLink").click(function (event) {
+        event.preventDefault();
+        $("#sess_time").spinner("value",15);
+        $(".overlay").fadeIn("fast");
+    });
+
+    $("#sess_time").spinner({
+        enable: true,
+        value: 15,
+        step: 15,
+        page: 60,
+        min:15,
+        max:480
+    });
+
+    params.system = {
+        monitorState: { html_ref: $('.system').find('.monitorState'), val:undefined},
+        voltage: { html_ref: $('.system').find('.voltage'), val: undefined },
+        date: { html_ref: $('.system').find('.date'), val: undefined },
+        board_temperature: { html_ref: $('.system').find('.board_temperature'), val: undefined},
+        drive_space_remaining: { html_ref: $('.system').find('.drive_space_remaining'), val: undefined}
+    };
+
+}
+
+// synchronizes Login Overlay UI to auth flags (cookies)
+function check_auth() {
+
+    if (Cookies.get('session_token_key') == undefined) {
+        $('#loginLink').html("not logged in");
+        if ($(".overlay").is(":visible") === false) {
+            console.log("here");
+            $(".overlay").fadeIn("fast");
+            $("#sess_time").spinner("value", 15);
+
+            var auth_error = Cookies.get('authorization_error');
+
+            if (auth_error !== undefined) {
+                if (auth_error === "403") {
+                    $('#login_status').html('The requested resource requires elevated permissions');
+                }
+		else if (auth_error === "419") {
+                    $('#login_status').html('The session is invalid or has expired');	   
+		}
+	        else if (auth_error === "503") {
+                    $('#login_status').html('The proxy service is unavailable');	   
+		}
+                else {
+                    alert(auth_error);
+                }
+                Cookies.remove('authorization error');
+            }
+            return false;
+        }
+    }
+    else {
+
+        $('#loginLink').html(Cookies.get('username'));
+        return true;
+    }
+
+}
+
+function Login() {
+    var formData ="username=" + $('#username').val() + "&password=" + $('#password').val()
+        +"&sess_time=" + $('#sess_time').val();
+
+    $.ajax({
+        type: 'POST',
+        timeout: 5000,
+        url: 'https://'+ proxyHostName + ':' + proxyPort + '/proxy/Login',
+        data: formData,
+        dataType: "text",
+        success: function(data){
+            Cookies.set('session_token_key', data);
+            Cookies.set('username',$('#username').val());
+
+            $('#login_status').html('');
+            $(".overlay").fadeOut("fast");
+        },
+
+        error: function(request, status, error){
+            if (request.status === 403) {
+                $('#login_status').html('invalid username or password');
+            }
+	    if (request.status === 419) {
+                $('#login_status').html('the session is invalid or has expired');
+	    }
+            if (auth_error === "503") {
+                $('#login_status').html('The proxy service is unavailable');
+            }
+		
+	    // console.log(request.status);
+        }
+    });
+}
+
+function GetFormData(variant) {
+    var formData ="session_token_key=" + encodeURIComponent(Cookies.get('session_token_key'))
+        + "&device_id=" + device_id + "&variant=" + variant;
+    return formData;
+}
+
+function HandleAuthError(error) {
+
+        Cookies.remove('session_token_key');
+        Cookies.remove('username');
+        Cookies.set('authorization_error', error);
+}
+
+function IPSubmitted() {
+    window.location.href = "/?ip=" + $('#ip').val();
+}
+
+function SetIP() {
+    if (ValidateIPaddress($('#ip').val()) === true){
+        device_id = $('#ip').val();
+        $('#btnSubmitIP').attr("disabled",true);
+        $('#ip_status').html('');
+    }
+    else{
+        $('#ip_status').html('Invalid IP address');
+    }
+}
+
+/**
+ * @param {string} inputText
+ * @return {boolean}
+ */
+function ValidateIPaddress(inputText) {
+    var ipformat = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+    ipformat = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
+    if(inputText.match(ipformat))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++)
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+            return sParameterName[1];
+        }
+    }
+}

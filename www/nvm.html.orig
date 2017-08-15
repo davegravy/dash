@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/style.css?cc=19022015" type="text/css" />
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="css/dc.css"/>
+ 
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src=
+            "js/jquery.validate.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.masks.js" type="text/javascript"></script>
+    <script src="js/js.cookie.js" type="text/javascript"></script>
+    <script src="common.js" type="text/javascript"></script>
+    <script src="nvm_windbins.js" type="text/javascript"></script>
+
+    <script src="js/d3.js" charset="utf-8"></script>
+    <script src="js/dc.js"></script>
+    <script src="js/crossfilter.js"></script>
+
+
+    <script type="text/javascript">
+
+
+
+        var params;
+
+
+        $(document).ready(function() {
+
+            init();
+            common_init();
+            MainLoop();
+        });
+
+
+        function init() {
+            params = {
+                measurements: {
+                    current: {
+                        soundLeveldBZ:
+                            {html_ref: $('.measurements').find('.current').find('.soundLeveldBZ'), val: undefined},
+                        soundLeveldBA:
+                            {html_ref: $('.measurements').find('.current').find('.soundLeveldBA'), val: undefined},
+                        vibrationLevelX:
+                            {html_ref: $('.measurements').find('.current').find('.vibrationLevelX'), val: undefined},
+                        vibrationLevelY:
+                            {html_ref: $('.measurements').find('.current').find('.vibrationLevelY'), val: undefined},
+                        vibrationLevelZ:
+                            {html_ref: $('.measurements').find('.current').find('.vibrationLevelZ'), val: undefined},
+                        windDirAvg:
+                            {html_ref: $('.measurements').find('.current').find('.windDirAvg'), val: undefined},
+                        windSpdAvg:
+                            {html_ref: $('.measurements').find('.current').find('.windSpdAvg'), val: undefined},
+                        airTemp:
+                            {html_ref: $('.measurements').find('.current').find('.airTemp'), val: undefined},
+                        relHumid:
+                            {html_ref: $('.measurements').find('.current').find('.relHumid'), val: undefined},
+                        airPress:
+                            {html_ref: $('.measurements').find('.current').find('.airPress'), val: undefined},
+                        precipitation:
+                            {html_ref: $('.measurements').find('.current').find('.precipitation'), val: undefined}
+                    },
+                    last_interval: {
+                        soundLevel:
+                            {html_ref: $('.measurements').find('.last_interval').find('.soundLevel'), val: undefined},
+                        windDirAvg:
+                            {html_ref: $('.measurements').find('.last_interval').find('.windDirAvg'), val: undefined},
+                        windSpdAvg:
+                            {html_ref: $('.measurements').find('.last_interval').find('.windSpdAvg'), val: undefined},
+                        windSpdMin:
+                            {html_ref: $('.measurements').find('.last_interval').find('.windSpdMin'), val: undefined},
+                        windSpdMax:
+                            {html_ref: $('.measurements').find('.last_interval').find('.windSpdMax'), val: undefined},
+                        airTemp:
+                            {html_ref: $('.measurements').find('.last_interval').find('.airTemp'), val: undefined},
+                        relHumid:
+                            {html_ref: $('.measurements').find('.last_interval').find('.relHumid'), val: undefined},
+                        airPress:
+                            {html_ref: $('.measurements').find('.last_interval').find('.airPress'), val: undefined},
+                        precipitation:
+                            {html_ref: $('.measurements').find('.last_interval').find('.precipitation'), val: undefined},
+                        timeStamp:
+                            {html_ref: $('.measurements').find('.last_interval').find('.timeStamp'), val: undefined}
+                    }
+                },
+                cfg: {
+                    scheduleMode:
+                    {html_ref: $('.system').find('.scheduleMode'), val: undefined},
+                    scheduleOnTime:
+                    {html_ref: $('.system').find('.scheduleOnTime'), val: undefined},
+                    scheduleOffTime:
+                    {html_ref: $('.system').find('.scheduleOffTime'), val: undefined},
+                    sampleRate:
+                    {html_ref: $('.system').find('.sampleRate'), val: undefined}
+                }
+            };
+
+
+            $( ".weather_history").dialog({
+                autoOpen: false,
+                height: 620,
+                width: 650,
+                resizable: false
+
+            });
+
+
+
+        }
+
+        function MainLoop() {
+
+            if (check_auth()) {
+                GetMonitorValues();
+                UpdateWindBins();
+                UpdateGUI(params);
+            }
+
+            setTimeout(MainLoop, pollingInterval);
+        }
+
+
+        function GetMonitorValues() {
+
+            $.ajax({
+                type: 'POST',
+                timeout: 5000,
+                url: 'https://'+ proxyHostName + ':' + proxyPort + '/proxy/getMonitorValues',
+                data: GetFormData('AE2'),
+                dataType: "text",
+                success: function(data){
+
+                    var obj = jQuery.parseJSON( data );
+
+                    pollingInterval = obj["system"]["polling interval"];
+
+                    params.system.monitorState.val = obj["system state"];
+                    params.system.date.val = obj["system"]["date"];
+                    params.system.voltage.val = obj["system"]["voltage"];
+                    params.system.drive_space_remaining.val = obj["system"]["drive space remaining"];
+
+                    params.cfg.sampleRate.val = obj["system"]["sample rate"];
+                    params.cfg.scheduleMode.val = obj["system"]["schedule mode"];
+                    params.cfg.scheduleOnTime.val = obj["system"]["scheduled on time"];
+                    params.cfg.scheduleOffTime.val = obj["system"]["scheduled off time"];
+
+                    var current = params.measurements.current;
+
+                    current.soundLeveldBZ.val = obj["measurements"]["current"]["sound"]["leq dBZ"];
+                    current.soundLeveldBA.val = obj["measurements"]["current"]["sound"]["leq dBA"];
+                    current.vibrationLevelX.val = obj["measurements"]["current"]["vibration"]["level x (1s rms)"];
+                    current.vibrationLevelY.val = obj["measurements"]["current"]["vibration"]["level y (1s rms)"];
+                    current.vibrationLevelZ.val = obj["measurements"]["current"]["vibration"]["level z (1s rms)"];
+                    current.windDirAvg.val = obj["measurements"]["current"]["weather"]["wind direction"];
+                    current.windSpdAvg.val = obj["measurements"]["current"]["weather"]["wind speed"];
+                    current.airTemp.val = obj["measurements"]["current"]["weather"]["air temperature"];
+                    current.relHumid.val = obj["measurements"]["current"]["weather"]["relative humidity"];
+                    current.airPress.val = obj["measurements"]["current"]["weather"]["air pressure"];
+                    current.precipitation.val = obj["measurements"]["current"]["weather"]["precipitation"];
+
+                    var last_interval = params.measurements.last_interval;
+
+                    last_interval.soundLevel.val = obj["measurements"]["last interval"]["sound"]["leq"];
+                    last_interval.windDirAvg.val = obj["measurements"]["last interval"]["weather"]["wind direction"];
+                    last_interval.windSpdAvg.val = obj["measurements"]["last interval"]["weather"]
+                        ["wind speed average"];
+                    last_interval.windSpdMin.val = obj["measurements"]["last interval"]["weather"]
+                        ["wind speed minimum"];
+                    last_interval.windSpdMax.val = obj["measurements"]["last interval"]["weather"]
+                        ["wind speed maximum"];
+                    last_interval.airTemp.val = obj["measurements"]["last interval"]["weather"]["air temperature"];
+                    last_interval.relHumid.val = obj["measurements"]["last interval"]["weather"]["relative humidity"];
+                    last_interval.airPress.val = obj["measurements"]["last interval"]["weather"]["air pressure"];
+                    last_interval.precipitation.val = obj["measurements"]["last interval"]["weather"]["precipitation"];
+                    last_interval.timeStamp.val = obj["measurements"]["last interval"]["sound"]["timestamp"];
+
+                },
+
+                error: function(request, status, error){
+
+                    
+                    IterateRoots(params, setUndefined);  // set all parameters to "undefined"
+
+                    HandleAuthError(request.status);
+
+                    function setUndefined (param) {param.val = undefined}
+
+                }
+            });
+        }
+
+
+        function OpenWindBins() {
+            $(".weather_history").dialog("open");
+/*            $(".total_precipitation").css("text-align","left");
+            $(".num_gusty_intervals").css("text-align","left");*/
+            //displayChart()
+        }
+        function SetStartStopMonitoring() {
+            if ($('#btnStartStop').val()==='Start') {
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://' + proxyHostName + ':' + proxyPort + '/proxy/setStartInstrument',
+                    data: GetFormData('AE2'),
+                    dataType: "text",
+		            success: OnSetStartStopSuccess,
+                    error: OnSetStartStopError
+                });
+            }
+            if ($('#btnStartStop').val()==='Stop') {
+                var formData ="session_token_key=" + encodeURIComponent(Cookies.get('session_token_key'))
+                    + "&ip=" + device_id;
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://' + proxyHostName + ':' + proxyPort + '/proxy/setStopInstrument',
+                    data: GetFormData('AE2'),
+                    dataType: "text",
+		            success: OnSetStartStopSuccess,
+                    error: OnSetStartStopError
+                });
+            }
+        }
+
+        function OnSetStartStopSuccess(data) {
+	        var obj = jQuery.parseJSON( data );
+        }
+
+        function OnSetStartStopError(data, status, error) {
+            var obj = jQuery.parseJSON( data );
+
+            HandleAuthError(error);
+        }
+
+        function SetOnOff() {
+
+            if ($('#btnOnOff').val() === 'On') {
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://' + proxyHostName + ':' + proxyPort + '/proxy/setPowerOnInstrument',
+                    data: GetFormData('AE2'),
+                    dataType: "text",
+                    success: OnSetPowerSuccess,
+                    error: OnSetPowerError
+                });
+            }
+            if ($('#btnOnOff').val() === 'Off') {
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://' + proxyHostName + ':' + proxyPort + '/proxy/setPowerOffInstrument',
+                    data: GetFormData('AE2'),
+                    dataType: "text",
+                    success: OnSetPowerSuccess,
+                    error: OnSetPowerError
+                });
+            }
+        }
+
+        function OnSetPowerSuccess(data) {
+            //var obj = jQuery.parseXML( data );
+            //var $xml = $(obj);
+
+            //alert($xml.find('datavalues').find('relay1state').text());
+           // monitorState = obj["Monitor State"];
+           // soundLeveldBZ = obj["Leq (1s dBLin)"];
+        }
+
+        function OnSetPowerError(data, status, error) {
+            //var obj = jQuery.parseXML( data );
+
+            HandleAuthError(error);
+
+
+            //alert(data)
+            //alert ("error" + error);
+
+            // monitorState = obj["Monitor State"];
+            // soundLeveldBZ = obj["Leq (1s dBLin)"];
+        }
+
+
+        function UpdateGUI() {
+
+            IterateRoots(params, UpdateParam);
+            UpdateButtons();
+
+            function UpdateParam (param) {
+                if (param.val !== param.html_ref.val()) {
+                    param.html_ref.val(param.val);
+                }
+            }
+        }
+
+        function IterateRoots(sub_params, func) {
+            var key;
+
+            for(key in sub_params)
+            {
+                var param = sub_params[key];
+
+                if (!("html_ref" in param)) {
+                    IterateRoots(param, func);
+                }
+                else {
+                func(param);
+                }
+            }
+
+
+        }
+
+        function UpdateButtons() {
+            if (params.system.monitorState.val === 'Running') {
+                $('#btnOnOff').attr("disabled",true);
+                $('#btnOnOff').val ('Off');
+                $('#btnStartStop').attr("disabled",false);
+                $('#btnStartStop').val ('Stop');
+            }
+            else if (params.system.monitorState.val === 'Ready') {
+                $('#btnOnOff').attr("disabled",false);
+                $('#btnOnOff').val('Off');
+                if (params.cfg.scheduleMode.val != 'Scheduled') {$('#btnStartStop').attr("disabled",false);}
+                else $('#btnStartStop').attr("disabled",true);
+                $('#btnStartStop').val('Start');
+            }
+            else if (params.system.monitorState.val === 'Powering On') {
+                $('#btnOnOff').attr("disabled",true);
+                $('#btnStartStop').attr("disabled",true);
+            }
+            else if (params.system.monitorState.val === 'Off') {
+                $('#btnOnOff').attr("disabled",false);
+                $('#btnOnOff').val ('On');
+                $('#btnStartStop').attr("disabled",true);
+                $('#btnStartStop').val ('Start');
+            }
+            else if (params.system.monitorState.val === 'Webrelay Error') {
+                $('#btnOnOff').attr("disabled",true);
+                $('#btnStartStop').attr("disabled",true);
+            }
+            else {
+                $('#btnOnOff').attr("disabled",true);
+                $('#btnOnOff').val('On');
+                $('#btnStartStop').attr("disabled",true);
+                $('#btnStartStop').val ('Start');
+            }
+        }
+
+
+    </script>
+
+
+
+    <title>AE2 Dashboard</title>
+
+    <style>
+
+
+
+             /*
+             *	RESET
+             */
+         *{
+             box-sizing: border-box;
+             /*  margin: 0;
+               outline: none;
+               padding: 0;*/
+         }
+
+        *:after,
+        *:before {
+            box-sizing: border-box;
+        }
+
+        /*
+        *	GLOBAL
+        */
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-rendering: optimizeLegibility;
+        }
+
+        body {
+            background-color: #C4C4C4;
+            /*color: rgb(165,165,165);*/
+            font-family: "Open Sans", Arial, Helvetica, sans-serif;
+            font-weight: 400;
+        }
+
+/*        a.close {
+            background-color: rgb(204,204,204);
+            border-radius: 50%;
+            color: rgb(255,255,255);
+            display: block;
+            font-family: 'Varela Round', sans-serif;
+            font-size: .8em;
+            padding: .2em .5em;
+            position: absolute;
+            top: 1.25rem;
+            transition: all 400ms ease;
+            right: 1.25rem;
+        }
+        a.close:hover {
+            background-color: #1bc5b3;
+            cursor: pointer;
+        }*/
+
+
+        /*
+        *	LOG-IN BOX
+        */
+        div.overlay {
+            background-color: rgba(0,0,0,.25);
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            left: 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        div.overlay > div.login-wrapper {
+            align-self: center;
+            background-color: rgba(0,0,0,.25);
+            border-radius: 2px;
+            padding: 6px;
+            width: 450px;
+        }
+
+        div.overlay > div.login-wrapper > div.login-content {
+            background-color: rgb(255,255,255);
+            border-radius: 2px;
+            padding: 24px;
+            position: relative;
+        }
+
+        div.overlay > div.login-wrapper > div.login-content > h3 {
+            color: rgb(0,0,0);
+            font-family: 'Varela Round', sans-serif;
+            font-size: 1.8em;
+            margin: 0 0 1.25em;
+            padding: 0;
+        }
+        /*
+        *	FORM
+        */
+        form label {
+            color: rgb(0,0,0);
+            display: block;
+            font-family: 'Varela Round', sans-serif;
+            font-size: 1.25em;
+            margin: .75em 0;
+        }
+
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="number"],
+        form input[type="search"],
+        form input[type="password"],
+        form textarea {
+            background-color: rgb(255,255,255);
+            border: 1px solid rgb( 186, 186, 186 );
+            border-radius: 1px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+            display: block;
+            font-size: .65em;
+            margin: 6px 0 12px 0;
+            padding: .8em .55em;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
+            transition: all 400ms ease;
+            width: 90%;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="email"]:focus,
+        form input[type="number"]:focus,
+        form input[type="search"]:focus,
+        form input[type="password"]:focus,
+        form textarea:focus,
+        form select:focus {
+            border-color: #4195fc;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px #4195fc;
+        }
+
+        form input[type="text"]:invalid:focus,
+        form input[type="email"]:invalid:focus,
+        form input[type="number"]:invalid:focus,
+        form input[type="search"]:invalid:focus,
+        form input[type="password"]:invalid:focus,
+        form textarea:invalid:focus,
+        form select:invalid:focus {
+            border-color: rgb(248,66,66);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgb(248,66,66);
+        }
+
+        form button {
+            background-color: #50c1e9;
+            border: 1px solid rgba(0,0,0,.1);
+            color: rgb(255,255,255);
+            font-family: 'Varela Round', sans-serif;
+            font-size: .85em;
+            padding: .55em .9em;
+            transition: all 400ms ease;
+        }
+
+        form button:hover {
+            background-color: #1bc5b3;
+            cursor: pointer;
+        }
+
+             .logo {
+                 float:left;
+
+             }
+             /*#banner {overflow: hidden;}*/
+
+
+             #loginLink {
+                 position:absolute;
+                 bottom:5px;right:21px;border:none;
+             }
+
+             div.dashboard div.system {
+                 /*height:300px;*/
+                 width:100%;
+                 padding:0;
+                 padding-top:0;
+                 margin:0;
+
+                 border-style: dotted;
+                 border-width: 1px;
+             }
+
+
+
+             div.dashboard div.system div.col-left {
+                 width:50%;
+                 /*height:50%;*/
+                 padding-bottom:20px;
+                 margin:0;
+                 float:left;
+/*                 border-style: dashed;
+                 border-width: 2px;*/
+             }
+
+             div.dashboard div.system div.col-right {
+                 width:50%;
+                 /*height:50%;*/
+                 padding-bottom:20px;
+                 margin:0;
+                 float:left;
+/*                 border-style: dashed;
+                 border-width: 2px;*/
+             }
+
+             div.dashboard div.system div.bottom {
+                 text-align: center;
+                 padding:20px;
+                 margin:0;
+                 clear:both;
+                 width:100%;
+                 /*height:20%;*/
+/*                 border-style: dashed;
+                 border-width: 2px;*/
+
+             }
+             div.dashboard div.measurements div.current {
+                 width:50%;
+                 height:425px;
+                 float:left;
+                 padding-bottom:20px;
+                 border-style: dotted;
+                 border-width: 1px;
+             }
+
+             div.dashboard div.measurements div.last_interval {
+                 width:50%;
+                 height:425px;
+                 float:left;
+                 padding-bottom:20px;
+                 border-style: dotted;
+                 border-width: 1px;
+             }
+
+             div.dashboard label {
+
+                 float: left;
+                 text-align: right;
+                 margin-right: 15px;
+                 width: 200px;
+             }
+
+             div.dashboard input {
+                 width: 100px;
+                 padding: 5px 8px;
+             }
+
+/*             div.dashboard > button {
+                 margin-left: 156px;
+             }*/
+
+             div.dashboard div.ip_info {
+                 text-align:right;
+                 float:none;
+             }
+             div.dashboard div.ip_info label {
+                 text-align:right;
+                 float:none;
+             }
+
+             div.weather_history div.windspeed_historgram {
+                 height:450px;
+                 width:100%;
+                 padding:0;
+                 margin:0px;
+                 padding-top:20px;
+
+
+ /*                border-style: dotted;
+                 border-width: 1px;*/
+             }
+             div.weather_history div.other_data {
+                 width:100%;
+                 padding:20px;
+                 text-align:left;
+                 margin:0px;
+
+/*                 border-style: dotted;
+                 border-width: 3px;*/
+             }
+             div.weather_history div.other_data input {
+                 width: 40px;
+                 padding: 5px 8px;
+             }
+             div.weather_history div.other_data label {
+                 float: left;
+                 text-align: right;
+                 margin-right: 15px;
+                 width: 300px;
+             }
+
+
+    </style>
+</head>
+
+<body>
+
+
+<div id="page_">
+    <div id="mmenu">
+
+    </div><!-- mmenu -->
+
+    <div id="page">
+
+        <div id="banner_">
+            <div id="banner" class="cwidth">
+               <img class="logo" id="logo" src="biglogo.png" ALT="Aercoustics Aerocoustical engineering experts logo"
+                    title="aercoustics-aerocoustical-engineering-logo.png">
+                <a href="./" id="loginLink">Not Logged In</a>
+            </div>
+
+
+            <div id="bleed_line_">
+                <div id="bleed_line" class="cwidth"></div>
+            </div>
+        </div>
+
+        <div id="stuffheight"></div>
+
+
+        <div id="content_container" class="cwidth">
+            <div id="slider_nav" style="display:none;">
+				<span id="slider_m">
+					<span class="auxbreadcrumb"><a href="./" class="slider_mnav">Home </a>
+                        <span class="slider_mnav">/</span>
+                    </span>
+                </span>
+            </div>
+            <div id="slidescroll" style="position:relative;overflow:hidden;">
+            </div>
+            <!-- slider -->
+            <div id="content">
+                <br>
+
+                <div class="info_heading">
+                    <h3 style="text-align:center;margin-bottom:0;">AE2 Dashboard</h3>
+
+                </div>
+
+                <div class="overlay" style="display: none;">
+                    <div class="login-wrapper">
+                        <div class="login-content">
+                            <h3>Sign in</h3>
+                            <form method="post" action="https://localhost:8000/Login">
+                                <label for="username">
+                                    Username:
+                                    <input type="text" name="username" id="username"
+                                           placeholder="Username must be between 7 and 20 characters" pattern=".{7,20}"
+                                           required="required" />
+                                </label>
+                                <label for="password">
+                                    Password:
+                                    <input type="password" name="password" id="password"
+                                           placeholder="Password must be at least 7 characters" pattern=".{8,}"
+                                           required="required" />
+                                </label>
+                                <label for="sess_time">
+                                    Session Time (min):
+                                    <input id="sess_time" name="session_time" value="15" style="width:40px">
+                                </label>
+                                <div id="login_status" style="color:red"></div>
+                                <button id="login" type="button" onclick="Login(); return false;">Sign in</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <br>
+                <div class="dashboard">
+                    <div class="weather_history" title="Weather History">
+                        <div class="windspeed_historgram" title="windspeed_historgram">
+
+                        </div>
+                        <div class="other_data">
+                            <label>accumulated precipitation:</label>
+                            <input class="total_precipitation"  type="text"
+                                   name="total_precipitation" value = "" readonly>mm<br>
+
+                            <label># of gusty intervals:</label>
+                            <input class="num_gusty_intervals"  type="text"
+                                   name="num_gusty_intervals" value = "" readonly><br>
+                        </div>
+                    </div>
+
+
+
+                    <div class="ip_info">
+                        <label for="ip">IP Address: </label>
+                        <input id="ip" class="ip_address" type="text" value="0.0.0.0" />
+
+                        <input id="btnSubmitIP" type="button" value="Submit"
+                               disabled onclick="IPSubmitted(); return false;"/>
+                        <div id="ip_status" style="color:red"></div><br>
+                    </div>
+
+
+                    <div class="system">
+                        <h3 style="margin-top:0">system</h3>
+                        <div class="col-left">
+                            <label>Monitor State:</label>
+                            <input class="monitorState" type="text" name="monitorState" value = "" readonly><br>
+
+                            <label>Sample Rate:</label>
+                            <input class="sampleRate" type="text" name="sampleRate" value = "" readonly> Hz<br>
+
+                            <label>Drive Space Remaining:</label>
+                            <input class="drive_space_remaining" type="text"
+                                   name="drive_space_remaining" value = "" readonly> MB<br>
+
+                            <label>Voltage:</label>
+                            <input class="voltage" type="text" name="voltage" value = "" readonly> V<br>
+                        </div>
+
+                        <div class="col-right">
+                            <label>System Date:</label>
+                            <input class="date" type="text" name="text" value = "" readonly><br>
+
+                            <label>Schedule Mode:</label>
+                            <input class="scheduleMode" type="text" name="scheduleMode" value = "" readonly><br>
+
+                            <label>Scheduled On Time:</label>
+                            <input class="scheduleOnTime" type="text" name="scheduleOnTime" value="" readonly><br>
+
+                            <label>Scheduled Off Time:</label>
+                            <input class= "scheduleOffTime" type="text" name="scheduleOffTime" value="" readonly><br>
+                        </div>
+
+                        <div class="bottom">
+                            <input id="btnOnOff" type="button" value="Off" onclick="SetOnOff(); return false;"/>
+                            <input id="btnStartStop" type="button" value="Stop"
+                                   onclick="SetStartStopMonitoring(); return false;"/>
+                        </div>
+                    </div>
+
+                    <div class="measurements">
+                        <div class ="current">
+                            <h3 style="margin-top:0">live data</h3>
+                            <label>Leq (1s):</label>
+                            <input class = "soundLeveldBZ" type="text" name="soundLeveldBZ"
+                                   value = "" readonly> dB(Z)<br>
+
+                            <label>Leq (1s):</label>
+                            <input class = "soundLeveldBA" type="text" name="soundLeveldBA" value = ""
+                                   readonly> dB(A)<br>
+
+                            <label>Level X (1s RMS): </label>
+                            <input class = "vibrationLevelX" type="text" name="vibrationLevelX" value = ""
+                                   readonly> g<br>
+
+                            <label>Level Y (1s RMS): </label>
+                            <input class = "vibrationLevelY" type="text" name="vibrationLevelY" value = ""
+                                   readonly> g<br>
+
+                            <label>Level Z (1s RMS): </label>
+                            <input class = "vibrationLevelZ" type="text" name="vibrationLevelZ" value = ""
+                                   readonly> g<br>
+
+                            <label>Wind Direction:</label>
+                            <input class = "windDirAvg" type="text" name="windDirAvg" value = "" readonly> deg<br>
+
+                            <label>Wind Speed:</label>
+                            <input class = "windSpdAvg" type="text" name="windSpdAvg" value = "" readonly> m/s<br>
+
+                            <label>Air Temperature:</label>
+                            <input class = "airTemp"  type="text" name="airTemp" value = "" readonly> deg C<br>
+
+                            <label>Relative Humidity:</label>
+                            <input class = "relHumid" type="text" name="relHumid" value = "" readonly> %<br>
+
+                            <label>Air Pressure:</label>
+                            <input class = "airPress" type="text" name="airPress" value = "" readonly> hPa<br>
+
+                            <label>Precipitation:</label>
+                            <input class = "precipitation"  type="text" name="precipitation" value = "" readonly> mm<br>
+                        </div>
+
+                        <div class ="last_interval">
+                            <h3 style="margin-top:0">last interval</h3>
+                            <label>Leq:</label>
+                                <input class = "soundLevel" type="text" name="soundLevel" value = ""
+                                       readonly> dB(Z) or dB(A)<br>
+
+                            <label>Wind Direction:</label>
+                                <input class = "windDirAvg" type="text" name="windDirAvg" value = "" readonly> deg<br>
+
+                            <label>Wind Speed Average:</label>
+                                <input class = "windSpdAvg" type="text" name="windSpdAvg" value = "" readonly> m/s<br>
+
+                            <label>Wind Speed Minimum:</label>
+                            <input class = "windSpdMin" type="text" name="windSpdMin" value = "" readonly> m/s<br>
+
+                            <label>Wind Speed Maximum:</label>
+                            <input class = "windSpdMax" type="text" name="windSpdMax" value = "" readonly> m/s<br>
+
+                            <label>Air Temperature:</label>
+                                <input class = "airTemp" type="text" name="airTemp" value = "" readonly> deg C<br>
+
+                            <label>Relative Humidity:</label>
+                                <input class = "relHumid" type="text" name="relHumid" value = "" readonly> %<br>
+
+                            <label>Air Pressure:</label>
+                                <input class = "airPress" type="text" name="airPress" value = "" readonly> hPa<br>
+
+                            <label>Precipitation:</label>
+                                <input class = "precipitation" type="text" name="precipitation" value = ""
+                                       readonly> mm<br>
+
+                            <label>Timestamp:</label>
+                            <input class = "timeStamp" type="text" name="timeStamp" value = "" readonly><br>
+                            <input id="Wind Bins" type="button" value="Wind Bins"
+                                   onclick="OpenWindBins(); return false;"/>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div><!-- content -->
+
+        </div><!-- content container -->
+
+    </div>
+    <div id="push"></div>
+</div>
+
+<div id="footer_">
+    <div id="footer" class="cwidth">
+        <span id="copyright">Copyright 2015 Aercoustics Engineering Limited. All rights reserved.</span>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+</body>
+
+</html>
