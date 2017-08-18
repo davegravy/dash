@@ -63,7 +63,9 @@
             head.appendChild(script);
         }
 
+        //not called from anywhere?
         function loadMain() {
+            console.log("index.html->loadMain()");
             $('body').load('main_body.html', function(response, status, xhr){
 
                 $( "#main_navbar" ).load( "main_navbar.html", function( response, status, xhr ) {

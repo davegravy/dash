@@ -23,11 +23,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/assets/js/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="30" lean-forward="false" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="30" />
+            <state relative-caret-position="564">
+              <caret line="71" column="35" lean-forward="true" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index2.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/index2.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -45,36 +65,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>transition</find>
-      <find>user</find>
-      <find>role</find>
-      <find>ARMS-</find>
-      <find>verif</find>
-      <find>ver</find>
-      <find>getdecoded</find>
-      <find>getroles</find>
-      <find>verifytoken2</find>
-      <find>verifytoken</find>
-      <find>$q</find>
-      <find>alert</find>
-      <find>getsess</find>
-      <find>getSessions Error</find>
-      <find>getsession</find>
-      <find>var</find>
-      <find>.factory('cognito</find>
-      <find>factory</find>
-      <find>formda</find>
-      <find>successfull - n</find>
-      <find>SUCCESSFUL</find>
-      <find>success</find>
-      <find>navigation</find>
-      <find>sidebar</find>
-      <find>successfull</find>
-      <find>cognitoUser</find>
-      <find>userPool</find>
-      <find>10.0.1.26</find>
-      <find>d</find>
-      <find>dash</find>
+      <find>m</find>
+      <find>monito</find>
+      <find>monitor</find>
+      <find>monitor i</find>
+      <find>monitor id</find>
+      <find>s</find>
+      <find>si</find>
+      <find>sid</find>
+      <find>side</find>
+      <find>sidebar-</find>
+      <find>sidebar-m</find>
+      <find>sidebar-main</find>
+      <find>sidebar-main-</find>
+      <find>sidebar-main-t</find>
+      <find>sidebar-main-to</find>
+      <find>sidebar-main-tog</find>
+      <find>sidebar-main-togg</find>
+      <find>sidebar-main-toggl</find>
+      <find>sidebar-main-toggle</find>
+      <find>l</find>
+      <find>limi</find>
+      <find>limitle</find>
+      <find>limitles</find>
+      <find>limitless-</find>
+      <find>limitless-a</find>
+      <find>limitless-ap</find>
+      <find>limitless-app</find>
+      <find>limitless-app.</find>
+      <find>limitless-app.j</find>
+      <find>limitless-app.js</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Source\arms-proxy\www\limit-test</dir>
@@ -89,7 +109,6 @@
         <option value="$PROJECT_DIR$/www/gentelella/production/index4.html" />
         <option value="$PROJECT_DIR$/www/gentelella/build/js/custom.js" />
         <option value="$PROJECT_DIR$/www/gentelella/production/index.html" />
-        <option value="$PROJECT_DIR$/www/index.html" />
         <option value="$PROJECT_DIR$/www/limit-test/login_advanced_temp.html" />
         <option value="$PROJECT_DIR$/www/limit-test/main_body.html" />
         <option value="$PROJECT_DIR$/www/limit-test/assets/js/core/libraries/ui-router-ng2.js" />
@@ -122,6 +141,18 @@
         <option value="$PROJECT_DIR$/www/limit-test/assets/js/pages/loginController.js" />
         <option value="$PROJECT_DIR$/www/limit-test/assets/js/factories/cognito.js" />
         <option value="$PROJECT_DIR$/www/limit-test/assets/js/factories/authorization.js" />
+        <option value="$PROJECT_DIR$/www/main_content.html" />
+        <option value="$PROJECT_DIR$/www/partial-monitor.html" />
+        <option value="$PROJECT_DIR$/www/partial-navbar.html" />
+        <option value="$PROJECT_DIR$/www/main_navbar.html" />
+        <option value="$PROJECT_DIR$/www/partial-error_403.html" />
+        <option value="$PROJECT_DIR$/www/main_body.html" />
+        <option value="$PROJECT_DIR$/www/partial-main.html" />
+        <option value="$PROJECT_DIR$/www/layout_fixed.html" />
+        <option value="$PROJECT_DIR$/www/main_sidebar.html" />
+        <option value="$PROJECT_DIR$/www/partial-dashboard.html" />
+        <option value="$PROJECT_DIR$/www/assets/js/app.js" />
+        <option value="$PROJECT_DIR$/www/index.html" />
       </list>
     </option>
   </component>
@@ -144,8 +175,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="60" />
-    <option name="width" value="1867" />
-    <option name="height" value="1055" />
+    <option name="y" value="2" />
+    <option name="width" value="1547" />
+    <option name="height" value="905" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -188,6 +220,46 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dash" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dash" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dash" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dash" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -360,12 +432,12 @@
       <workItem from="1502814227772" duration="27000" />
       <workItem from="1502814267331" duration="24000" />
       <workItem from="1502816702911" duration="162000" />
-      <workItem from="1502816915846" duration="1596000" />
+      <workItem from="1502816915846" duration="8405000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="279789000" />
+    <option name="totallyTimeSpent" value="286598000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -377,13 +449,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="60" y="0" width="1867" height="1055" extended-state="0" />
+    <frame x="60" y="2" width="1547" height="905" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19989195" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24167211" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1005291" sideWeight="0.5018909" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11949685" sideWeight="0.5022861" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26031747" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1005291" sideWeight="0.49810913" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11949685" sideWeight="0.49771392" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -422,20 +495,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/www/common.js" />
-    <entry file="file://$PROJECT_DIR$/www/morley.csv" />
-    <entry file="file://$PROJECT_DIR$/www/nvm.html" />
-    <entry file="file://$PROJECT_DIR$/www/gentelella/production/plain_page.html" />
-    <entry file="file://$PROJECT_DIR$/www/gentelella/production/index4.html" />
-    <entry file="file://$PROJECT_DIR$/www/gentelella/build/js/custom.min.js" />
-    <entry file="file://$PROJECT_DIR$/www/gentelella/build/js/custom.js" />
-    <entry file="file://$PROJECT_DIR$/www/gentelella/production/index.html" />
-    <entry file="file://$PROJECT_DIR$/www/limitless_1.5/layout_1/LTR/default/assets/js/core/app.js" />
-    <entry file="file://$PROJECT_DIR$/www/limitless_1.5/layout_1/LTR/default/alpaca_basic.html" />
-    <entry file="file://$PROJECT_DIR$/www/limitless_1.5/layout_1/LTR/default/index.html" />
-    <entry file="file://$PROJECT_DIR$/www/common.js" />
-    <entry file="file://C:/dash/www/login_advanced_temp.html" />
-    <entry file="file://$PROJECT_DIR$/www/limit-test/temp.html" />
     <entry file="file://C:/dash/www/assets/js/core/libraries/angular.min.js" />
     <entry file="file://C:/dash/www/index.html" />
     <entry file="file://C:/dash/www/main_content.html" />
@@ -472,10 +531,126 @@
     <entry file="file://C:/dash/www/assets/js/factories/authorization.js" />
     <entry file="file://C:/dash/www/assets/js/factories/cognito.js" />
     <entry file="file://C:/dash/www/index.html" />
+    <entry file="file://$PROJECT_DIR$/www/main_navbar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="35" lean-forward="false" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/partial-error_403.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="288" column="35" lean-forward="false" selection-start-line="288" selection-start-column="35" selection-end-line="288" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/main_body.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="24" column="86" lean-forward="false" selection-start-line="24" selection-start-column="86" selection-end-line="24" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/layout_fixed.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="99" column="90" lean-forward="false" selection-start-line="99" selection-start-column="90" selection-end-line="99" selection-end-column="90" />
+          <folding>
+            <element signature="e#3755#3761#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/partial-main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="48" column="52" lean-forward="false" selection-start-line="48" selection-start-column="52" selection-end-line="48" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/main_sidebar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="80" column="67" lean-forward="true" selection-start-line="80" selection-start-column="67" selection-end-line="80" selection-end-column="67" />
+          <folding>
+            <marker date="1503063247263" expanded="false" signature="3526:4001" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/partial-monitor.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="104" column="146" lean-forward="false" selection-start-line="104" selection-start-column="146" selection-end-line="104" selection-end-column="146" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/login_advanced.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="16" column="59" lean-forward="false" selection-start-line="16" selection-start-column="59" selection-end-line="16" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/assets/js/pages/layout_fixed_custom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="41" column="24" lean-forward="true" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/partial-dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="108" lean-forward="false" selection-start-line="5" selection-start-column="108" selection-end-line="5" selection-end-column="108" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/partial-navbar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="71" lean-forward="false" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/main_content.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="133" column="142" lean-forward="false" selection-start-line="133" selection-start-column="142" selection-end-line="133" selection-end-column="142" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/assets/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/index2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="30" lean-forward="false" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="30" />
+        <state relative-caret-position="564">
+          <caret line="71" column="35" lean-forward="true" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
           <folding />
         </state>
       </provider>
