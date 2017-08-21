@@ -15,15 +15,15 @@
         }
     };
 
-/*
-    $(document).ready(function() {
-        var current_url_split = window.location.href.split("#"); //grab the href TODO: find a better way!
-        //console.log(current_url_split);
-        var CURRENT_URL = current_url_split[current_url_split.length - 1];
-        console.log(CURRENT_URL);
-        $(".navigation").find('a[ui-sref="' + CURRENT_URL + '"]').parent('li').addClass('active');
-    });
-*/
+    /*
+     $(document).ready(function() {
+     var current_url_split = window.location.href.split("#"); //grab the href TODO: find a better way!
+     //console.log(current_url_split);
+     var CURRENT_URL = current_url_split[current_url_split.length - 1];
+     console.log(CURRENT_URL);
+     $(".navigation").find('a[ui-sref="' + CURRENT_URL + '"]').parent('li').addClass('active');
+     });
+     */
 
 </script>
 
@@ -63,36 +63,52 @@
                 <!-- Main -->
                 <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
                 <li ui-sref-active="active"><a ui-sref="root.dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
-                <li ng-class="{active: $state.current.name === 'root.monitor'}">
+               <!-- <li ng-class="{active: $state.current.name === 'root.monitor'}">
                     <a><i class="icon-stack"></i> <span> Monitors</span></a>
                     <ul>
-<!--                        <ul ng-class="{'hidden-ul': $state.current.name !== 'root.monitor'}">-->
+                        &lt;!&ndash;                        <ul ng-class="{'hidden-ul': $state.current.name !== 'root.monitor'}">&ndash;&gt;
 
                         <li ui-sref-active="active"><a ui-sref="root.monitor({id: 'ARMS_NVM_P0'})">RCSM-MC</a></li>
                         <li ui-sref-active="active"><a ui-sref="root.monitor({id: 'ARMS_NVM_P1'})">RCSM-SIDE</a></li>
                         <li ui-sref-active="active"><a ui-sref="root.monitor({id: 'ARMS_NVM_P2'})">K2-R876</a></li>
-<!--                        <li>
-                            <a href="#">3 columns</a>
-                            <ul>
-                                <li><a class="disabled" href="3_col_dual.html">Dual sidebars</a></li>
-                                <li><a class="disabled" href="3_col_double.html">Double sidebars</a></li>
-                            </ul>
+                        &lt;!&ndash;                        <li>
+                                                    <a href="#">3 columns</a>
+                                                    <ul>
+                                                        <li><a class="disabled" href="3_col_dual.html">Dual sidebars</a></li>
+                                                        <li><a class="disabled" href="3_col_double.html">Double sidebars</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="4_col.html">4 columns</a></li>
+                                                <li>
+                                                    <a href="#">Detached layout</a>
+                                                    <ul>
+                                                        <li><a class="disabled" href="detached_left.html">Left sidebar</a></li>
+                                                        <li><a class="disabled" href="detached_right.html">Right sidebar</a></li>
+                                                        <li><a class="disabled" href="detached_sticky.html">Sticky sidebar</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a class="disabled" href="layout_boxed.html">Boxed layout</a></li>
+                                                <li class="disabled" class="navigation-divider"></li>
+                                                <li><a class="disabled" href="layout_navbar_fixed_main.html">Fixed top navbar</a></li>
+                                                <li><a class="disabled" href="layout_navbar_fixed_secondary.html">Fixed secondary navbar</a></li>
+                                                <li><a class="disabled" href="layout_navbar_fixed_both.html">Both navbars fixed</a></li>
+                                                <li><a class="disabled" hrdeletable__layout_fixed.htmlhtml">Fixed layout</a></li>&ndash;&gt;
+                    </ul>
+                </li>-->
+                <li ng-class="{active: $state.current.name === 'root.monitor'}">
+                    <a><i class="icon-stack"></i> <span> Monitors</span></a>
+                    <ul>
+                        <li ui-sref-active="active" ng-repeat="monitor in monitors | filter: { status: 'active' } : true">
+                            <a ui-sref="root.monitor({id: '{{monitor.device_id}}'})">
+                                {{monitor.site}}
+                            </a>
                         </li>
-                        <li><a href="4_col.html">4 columns</a></li>
-                        <li>
-                            <a href="#">Detached layout</a>
-                            <ul>
-                                <li><a class="disabled" href="detached_left.html">Left sidebar</a></li>
-                                <li><a class="disabled" href="detached_right.html">Right sidebar</a></li>
-                                <li><a class="disabled" href="detached_sticky.html">Sticky sidebar</a></li>
-                            </ul>
+                        <li ui-sref-active="active" ng-repeat="monitor in monitors | filter: { status: 'inactive' } : true">
+                            <a ui-sref="root.monitor({id: '{{monitor.device_id}}'})">
+                                {{monitor.site}} (inactive)
+                            </a>
                         </li>
-                        <li><a class="disabled" href="layout_boxed.html">Boxed layout</a></li>
-                        <li class="disabled" class="navigation-divider"></li>
-                        <li><a class="disabled" href="layout_navbar_fixed_main.html">Fixed top navbar</a></li>
-                        <li><a class="disabled" href="layout_navbar_fixed_secondary.html">Fixed secondary navbar</a></li>
-                        <li><a class="disabled" href="layout_navbar_fixed_both.html">Both navbars fixed</a></li>
-                        <li><a class="disabled" hrdeletable__layout_fixed.htmlhtml">Fixed layout</a></li>-->
+
                     </ul>
                 </li>
                 <li><a class="disabled" href="../changelog.html"><i class="icon-list-unordered"></i> <span>Changelog</span></a></li>

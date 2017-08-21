@@ -1,3 +1,4 @@
+/*
 function disposeTokens() {
     localStorage.removeItem('ARMS_idtoken');
     localStorage.removeItem('ARMS_accesstoken');
@@ -109,3 +110,4 @@ function loginSubmit(login, password, success, error) {
 
 
 }
+*/

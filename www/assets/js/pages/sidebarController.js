@@ -1,8 +1,9 @@
-angular.module('armsApp').controller('sidebar', function($scope, $timeout){
+angular.module('armsApp').controller('sidebar', function($scope, $timeout, $q, monitorManager){
 
     angular.element(document).ready(function(){
 
         $timeout(function(){ //necessary to access the DOM after apply() (not dirty)
+            //TODO fix hilights of monitor heading (dropdown) row
 
             let navigation = $('.navigation');
 
@@ -35,8 +36,20 @@ angular.module('armsApp').controller('sidebar', function($scope, $timeout){
             });
 
 
-            }, 0);
+        }, 0);
 
     });
+    
+    //monitorManager.getDeviceList();
+    monitorManager.getMonitorList().then(function(monitors) {
+            $scope.monitors = monitors;
+        }
+    )
+
+    /*$scope.monitors = [
+     {site:'RCSM-MC', device:'ARMS-NVM-P12'},
+     {site:'RCSM-ML', device:'ARMS-NVM-P22'},
+     {site:'NAP-020', device:'ARMS-NVM-P33'}
+     ];*/
 
 });

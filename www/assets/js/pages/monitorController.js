@@ -1,4 +1,4 @@
-angular.module('armsApp').controller('monitor', function($scope, $interval, $stateParams){
+angular.module('armsApp').controller('monitor', function($scope, $interval, $stateParams, monitorManager){
 
 
 
@@ -12,10 +12,20 @@ angular.module('armsApp').controller('monitor', function($scope, $interval, $sta
 
 
 
-    $scope.monitorIdShort = $stateParams.id.replace("ARMS_", "").replace("_", "-");
-    $scope.siteId = 'RCSM-MC';
+    monitorManager.getMonitor(undefined,$stateParams.id).then((monitor)=>{
+        //console.log(monitor);
+        $scope.siteId = monitor["site"];
+        if (monitor["monitor_type"] == "nvm") {$scope.monitorType = "NVM";}
+        if (monitor["monitor_type"] == "tvm") {$scope.monitorType = "TVM";}
+    });
+
+
+    //$scope.monitorIdShort = $stateParams.id.replace("ARMS_", "").replace("_", "-");//not sure why "_" had to be used instead of "-"
+    $scope.monitorIdShort = $stateParams.id.replace("ARMS-", "");
+
+
     $scope.ipAddress = '74.198.224.31';
-    $scope.monitorType = 'NVM';
+
     $scope.date = '04/03/2017';
     $scope.time = '04:42:38';
 

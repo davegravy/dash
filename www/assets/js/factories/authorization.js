@@ -9,7 +9,6 @@ angular.module('armsApp').factory('authorization', ['$rootScope', '$state', 'cog
 
                     //console.log('state has required roles:' + JSON.stringify($rootScope.toState.data.roles));
 
-
                     return cognito.getSession()
                         .then(
                             function(session){
