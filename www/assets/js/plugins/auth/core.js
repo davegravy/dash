@@ -7,7 +7,7 @@ function disposeTokens() {
 function verifyToken(token, use=undefined, scope=undefined, success, error) {
 
     let formData ="jwt_token=" + token;
-    console.log("formData:" + formData);
+    //console.log("formData:" + formData);
     if (use !== undefined) {formData += "&use=" + use;}
     if (scope !== undefined) {formData += "&scope=" + scope;}
 
@@ -81,15 +81,15 @@ function loginSubmit(login, password, success, error) {
     }
 
     function onVerifyTokenSuccess(data) {
-        console.log("onVerifyTokenSuccess");
-        console.log("data: " + data);
+        //console.log("onVerifyTokenSuccess");
+        //console.log("data: " + data);
         //alert("Welcome Sub:" + JSON.parse(data)["sub"]);
         if (success)
             success(data);
     }
 
     function onGetTokenSuccess (result) {
-        console.log("Authenticated");
+        //console.log("Authenticated");
         localStorage.setItem('ARMS_accesstoken', result.getAccessToken().getJwtToken());
         let identity = {
             token: result.getIdToken().getJwtToken(),
@@ -97,7 +97,7 @@ function loginSubmit(login, password, success, error) {
         };
 
         localStorage.setItem('ARMS_identity', JSON.stringify(identity));
-        console.log("result2: " + JSON.stringify(result.getIdToken().getJwtToken()));
+        //console.log("result2: " + JSON.stringify(result.getIdToken().getJwtToken()));
 
         verifyToken(result.getIdToken().getJwtToken(), "id", undefined , onVerifyTokenSuccess, onVerifyTokenError);
     }

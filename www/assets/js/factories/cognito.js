@@ -31,23 +31,23 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
             },
 
             getSession: function () {
-                console.log("getSession");
+                //console.log("getSession");
                 let deferred = $q.defer();
 
                 if (!this.getUserLocal()) {
                     deferred.resolve(null);
-                    console.log("getSession: no cached cognitoUser");
+                    //console.log("getSession: no cached cognitoUser");
                     return deferred.promise;
                 }
                 if (!_cognitoUserSession) {
-                    console.log("getSession: no cognitoUserSession");
+                    //console.log("getSession: no cognitoUserSession");
                     _cognitoUser.getSession(function(err,session) {
 
                         if (err) {
                             //alert("getSession Error:" + err);
                             return deferred.reject(err);
                         } else {
-                            console.log("getSession: cognitoUserSession fetched from cognito");
+                            //console.log("getSession: cognitoUserSession fetched from cognito");
                             _cognitoUserSession = session;
                             deferred.resolve(_cognitoUserSession);
                         }
@@ -56,7 +56,7 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
                 }
 
                 if (_cognitoUserSession && _cognitoUserSession.isValid()) {
-                    console.log("getSession: valid cognitoUserSession cached in RAM");
+                    //console.log("getSession: valid cognitoUserSession cached in RAM");
                     deferred.resolve(_cognitoUserSession);
                 }
                 else
@@ -75,7 +75,7 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
 
 
             getToken: function (use) {
-                console.log("getToken");
+                //console.log("getToken");
                 if (!_cognitoUserSession || !use)
                     return null;
                 else {
@@ -95,10 +95,10 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
                 //TODO separate into own service
 
 
-                console.log("getDecodedToken");
+                //console.log("getDecodedToken");
 
                 if (_decodedIdToken) { //use RAM cache if we have it
-                    console.log("found decoded token in memory");
+                    //console.log("found decoded token in memory");
                     return $q.when(_decodedIdToken);
 
                 }
@@ -159,7 +159,7 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
 
             getRoles: function () {
                 //get decoded ID token, return
-                console.log("getRoles");
+                //console.log("getRoles");
 
 
                 return this.getDecodedToken('id')
@@ -194,7 +194,7 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
             },
 
             isInAnyRole: function(rolesRequired){
-                console.log ("isInAnyRole:" + JSON.stringify(rolesRequired));
+                //console.log ("isInAnyRole:" + JSON.stringify(rolesRequired));
 
                 return this.getRoles().then(
                     (rolesAssigned) => { //don't actually need rolesAssigned
@@ -203,7 +203,7 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
                             return $q.when(false);
                         }
 
-                        console.log ("successfully retrieved roles");
+                        //console.log ("successfully retrieved roles");
                         let promises =[];
 
                         for (let i = 0; i < rolesRequired.length; i++) {
@@ -215,7 +215,7 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
                                 (values)=>{
                                     for (let i = 0; i < promises.length; i++) {
                                         if (values[i]) {
-                                            console.log("found match");
+                                            //console.log("found match");
                                             return $q.when(true);
                                         }
                                     }
@@ -224,7 +224,7 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
                                 })
                             .catch(
                                 (errors)=>{
-                                    console.log("isInAnyRole: isInRole callback");
+                                    //console.log("isInAnyRole: isInRole callback");
                                     console.log(JSON.stringify(errors));
                                     return $q.reject(errors);
                                 });
@@ -242,10 +242,10 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
             signOut: function () {
                 if (this.getUserLocal()) {
                     _cognitoUser.signOut();
-                    console.log("signOut: cognito sdk .signOut()");
+                    //console.log("signOut: cognito sdk .signOut()");
                 }
 
-                console.log("signOut: clearing ram cache");
+                //console.log("signOut: clearing ram cache");
                 _cognitoUserSession = null;
                 _decodedIdToken = null;
 
@@ -326,11 +326,11 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
 
             enableTrackDevice: function () {
 
-                console.log('enableTrackDevice');
+                //console.log('enableTrackDevice');
                 if (_cognitoUser) {
                     _cognitoUser.setDeviceStatusRemembered({
                         onSuccess: function (result) {
-                            console.log('call result: ' + result);
+                            //console.log('call result: ' + result);
                         },
 
                         onFailure: function (err) {
@@ -342,12 +342,12 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
 
             disableTrackDevice: function () {
 
-                console.log('disableTrackDevice');
+                //console.log('disableTrackDevice');
 
                 if (_cognitoUser) {
                     _cognitoUser.setDeviceStatusNotRemembered({
                         onSuccess: function (result) {
-                            console.log('call result: ' + result);
+                            //console.log('call result: ' + result);
                         },
 
                         onFailure: function(err) {

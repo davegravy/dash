@@ -4,28 +4,28 @@ $scope.rememberCheckBox = true; //remember device by default
 
 
     $scope.onLoginClicked = function() {
-        console.log("onLoginClicked");
-        console.log("rememberedCheckBox: " + $scope.rememberCheckBox);
+        //console.log("onLoginClicked");
+        //console.log("rememberedCheckBox: " + $scope.rememberCheckBox);
         cognito.signIn($scope.username, $scope.password, $scope.rememberCheckBox)
             .then(
                 function(result){
 
 
                     if ($scope.rememberCheckBox === true){
-                        console.log("User wants to remember device");
+                        //console.log("User wants to remember device");
                         cognito.enableTrackDevice();
                     }
                     if ($scope.rememberCheckBox === false) {
-                        console.log("User doesn't want to remember device");
+                        //console.log("User doesn't want to remember device");
                         cognito.disableTrackDevice();
                     }
 
 
                     if ($rootScope.returnToState && $rootScope.returnToStateParams){
-                        console.log("SUCCESSFUL, next action :" + $rootScope.returnToState.name + " " + JSON.stringify($rootScope.returnToStateParams ));
+                        //console.log("SUCCESSFUL, next action :" + $rootScope.returnToState.name + " " + JSON.stringify($rootScope.returnToStateParams ));
                         $state.go($rootScope.returnToState.name, $rootScope.returnToStateParams);
                     } else{
-                        console.log("SUCCESSFUL, next action: default state");
+                        //console.log("SUCCESSFUL, next action: default state");
                         $state.go('root.dashboard');
                     }
 

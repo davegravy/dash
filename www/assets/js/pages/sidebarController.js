@@ -6,14 +6,12 @@ angular.module('armsApp').controller('sidebar', function($scope, $timeout){
 
             let navigation = $('.navigation');
 
-            let active_elements = navigation.find('li.active');
-            console.log("controller active elements: " + active_elements.length);
             // Hide all nested lists
             navigation.find('li').not('.active, .category-title').has('ul').children('ul').addClass('hidden-ul');
             // Highlight children links
-            console.log(navigation.find('li').size());
+            //console.log(navigation.find('li').size());
             navigation.find('li').has('ul').children('a').addClass('has-ul');
-            console.log("apps.js dropdown stuff");
+            //console.log("apps.js dropdown stuff");
             // Add active state to all dropdown parent levels
             $('.dropdown-menu:not(.dropdown-content), .dropdown-menu:not(.dropdown-content) .dropdown-submenu').has('li.active').addClass('active').parents('.navbar-nav .dropdown:not(.language-switch), .navbar-nav .dropup:not(.language-switch)').addClass('active');
 

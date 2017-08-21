@@ -374,12 +374,20 @@ $(function() {
     // -------------------------
 
     // Toggle mini sidebar
-    $('.sidebar-main-toggle').on('click', function (e) {
+
+ /*   let navbar_header = $('.navbar-collapse');
+
+    let active_elements = navbar_header.find('.sidebar-main-toggle');
+    console.log("navbar-main-toggle elements: " + active_elements.length);*/
+
+/*    $('.sidebar-main-toggle').on('click', function (e) {
+
+
         e.preventDefault();
 
         // Toggle min sidebar class
         $('body').toggleClass('sidebar-xs');
-    });
+    });*/
 
 
 
@@ -537,10 +545,10 @@ $(function() {
     // -------------------------
 
     // Toggle main sidebar
-    $('.sidebar-mobile-main-toggle').on('click', function (e) {
+/*    $('.sidebar-mobile-main-toggle').on('click', function (e) {
         e.preventDefault();
         $('body').toggleClass('sidebar-mobile-main').removeClass('sidebar-mobile-secondary sidebar-mobile-opposite sidebar-mobile-detached');
-    });
+    });*/
 
 
     // Toggle secondary sidebar

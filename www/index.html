@@ -60,11 +60,13 @@
             script.onload = callback;
 
             // Fire the loading
+            console.log("loading script: " + url);
             head.appendChild(script);
         }
 
+
         //not called from anywhere?
-        function loadMain() {
+/*        function loadMain() {
             console.log("index.html->loadMain()");
             $('body').load('main_body.html', function(response, status, xhr){
 
@@ -90,7 +92,7 @@
 
                 });
             });
-        }
+        }*/
 
 /*        $(document).ready(function() {
             //localStorage.removeItem('ARMS_idtoken');

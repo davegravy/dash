@@ -2,7 +2,7 @@ let armsApp = angular.module('armsApp', ['ui.router']);
 
 
 armsApp.run(function(){
-    console.log("here22");
+    console.log("Arms_app.run");
 });
 
 armsApp.config(function($stateProvider, $urlRouterProvider) {
