@@ -23,21 +23,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="monitorManager.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="monitorManager.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/assets/js/factories/monitorManager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-699">
-              <caret line="69" column="146" lean-forward="false" selection-start-line="69" selection-start-column="146" selection-end-line="69" selection-end-column="146" />
+            <state relative-caret-position="146">
+              <caret line="17" column="56" lean-forward="true" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="monitorController.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="monitorController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/assets/js/pages/monitorController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="780">
-              <caret line="82" column="20" lean-forward="false" selection-start-line="82" selection-start-column="20" selection-end-line="82" selection-end-column="20" />
+            <state relative-caret-position="1394">
+              <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -118,12 +118,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getDecodedToken</find>
-      <find>getRoles</find>
-      <find>isInRole</find>
-      <find>disposetoken</find>
-      <find>i</find>
-      <find>isin</find>
       <find>isina</find>
       <find>isinany</find>
       <find>isinanyr</find>
@@ -138,7 +132,6 @@
       <find>authoriza</find>
       <find>authorizati</find>
       <find>authorizatio</find>
-      <find>authorization</find>
       <find>isInAnyRole</find>
       <find>this.</find>
       <find>getse</find>
@@ -148,11 +141,18 @@
       <find>date</find>
       <find>date type</find>
       <find>push</find>
+      <find>authorization</find>
+      <find>10.0.1.26</find>
+      <find>l</find>
+      <find>loca</find>
+      <find>location.</find>
+      <find>location.hos</find>
+      <find>location.host</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Source\arms-proxy\www\limit-test</dir>
-      <dir>C:\SourceGit\dash\www</dir>
       <dir>C:\SourceGit\dash</dir>
+      <dir>C:\SourceGit\dash\www</dir>
     </dirStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -206,9 +206,9 @@
         <option value="$PROJECT_DIR$/www/assets/js/factories/cognito.js" />
         <option value="$PROJECT_DIR$/www/main_sidebar.html" />
         <option value="$PROJECT_DIR$/www/assets/js/pages/sidebarController.js" />
-        <option value="$PROJECT_DIR$/www/assets/js/factories/monitorManager.js" />
         <option value="$PROJECT_DIR$/www/assets/js/pages/nvm.js" />
         <option value="$PROJECT_DIR$/www/assets/js/pages/monitorController.js" />
+        <option value="$PROJECT_DIR$/www/assets/js/factories/monitorManager.js" />
       </list>
     </option>
   </component>
@@ -583,12 +583,12 @@
       <workItem from="1502814227772" duration="27000" />
       <workItem from="1502814267331" duration="24000" />
       <workItem from="1502816702911" duration="162000" />
-      <workItem from="1502816915846" duration="64861000" />
+      <workItem from="1502816915846" duration="67416000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="343054000" />
+    <option name="totallyTimeSpent" value="345609000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -793,14 +793,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/assets/js/plugins/auth/deleteable-core.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/assets/js/pages/loginController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -852,10 +844,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/assets/js/pages/nvm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1894">
+          <caret line="539" column="24" lean-forward="false" selection-start-line="539" selection-start-column="24" selection-end-line="539" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/assets/js/plugins/auth/deleteable-core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="51" lean-forward="true" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/assets/js/pages/monitorController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1394">
+          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/assets/js/factories/cognito.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+        <state relative-caret-position="240">
+          <caret line="129" column="42" lean-forward="false" selection-start-line="129" selection-start-column="42" selection-end-line="129" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -870,24 +886,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/assets/js/factories/monitorManager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-699">
-          <caret line="69" column="146" lean-forward="false" selection-start-line="69" selection-start-column="146" selection-end-line="69" selection-end-column="146" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/assets/js/pages/nvm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1894">
-          <caret line="539" column="24" lean-forward="false" selection-start-line="539" selection-start-column="24" selection-end-line="539" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/assets/js/pages/monitorController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="82" column="20" lean-forward="false" selection-start-line="82" selection-start-column="20" selection-end-line="82" selection-end-column="20" />
+        <state relative-caret-position="146">
+          <caret line="17" column="56" lean-forward="true" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
           <folding />
         </state>
       </provider>

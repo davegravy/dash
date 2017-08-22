@@ -80,7 +80,7 @@ angular.module('armsApp').controller('monitor', function($scope, $interval, $sta
                     x = x*1000000;
                     y = y*1000000;
                     z = z*1000000;
-                    
+
                     data = {
                         //"date": CRIOInstrumentStatus["Time and Date"],
                         //"date": Date.parse(CRIOInstrumentStatus["Time and Date"]),

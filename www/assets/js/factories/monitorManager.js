@@ -20,7 +20,7 @@ angular.module('armsApp').factory('monitorManager', ['$q', '$http', 'cognito',
 
                 return $http({
                     method: 'POST',
-                    url: 'https://10.0.1.26/proxy/getSites',
+                    url: 'https://' + location.host + '/proxy/getSites', //TODO: use hostname not fixed IP
                     data: formData,
                     timeout: 5000,
                     responseType: 'text',
@@ -123,7 +123,7 @@ angular.module('armsApp').factory('monitorManager', ['$q', '$http', 'cognito',
 
                 return $http({
                     method: 'POST',
-                    url: 'https://10.0.1.26/proxy/getMonitorValues',
+                    url: 'https://' + location.host + '/proxy/getMonitorValues', //TODO: use hostname not fixed IP
                     data: formData,
                     timeout: 5000,
                     responseType: 'text',

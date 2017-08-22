@@ -127,7 +127,7 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
 
                     return $http({
                         method: 'POST',
-                        url: 'https://10.0.1.26/proxy/verifyToken',
+                        url: 'https://' + location.host + '/proxy/verifyToken',
                         data: formData,
                         timeout: 5000,
                         responseType: 'text',
