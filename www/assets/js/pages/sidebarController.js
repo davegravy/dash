@@ -39,7 +39,7 @@ angular.module('armsApp').controller('sidebar', function($scope, $timeout, $q, m
         }, 0);
 
     });
-    
+
     //monitorManager.getDeviceList();
     monitorManager.getMonitorList().then(function(monitors) {
             $scope.monitors = monitors;

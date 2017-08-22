@@ -12,22 +12,26 @@ angular.module('armsApp').controller('monitor', function($scope, $interval, $sta
 
 
 
+    $scope.monitorIdShort = $stateParams.id.replace("ARMS-", "");
+
     monitorManager.getMonitor(undefined,$stateParams.id).then((monitor)=>{
         //console.log(monitor);
         $scope.siteId = monitor["site"];
+        $scope.ipAddress = monitor["ip"];
         if (monitor["monitor_type"] == "nvm") {$scope.monitorType = "NVM";}
         if (monitor["monitor_type"] == "tvm") {$scope.monitorType = "TVM";}
+
     });
 
 
     //$scope.monitorIdShort = $stateParams.id.replace("ARMS_", "").replace("_", "-");//not sure why "_" had to be used instead of "-"
-    $scope.monitorIdShort = $stateParams.id.replace("ARMS-", "");
 
 
-    $scope.ipAddress = '74.198.224.31';
 
-    $scope.date = '04/03/2017';
-    $scope.time = '04:42:38';
+
+    //Initialize Defaults
+    $scope.date = '00/00/0000';
+    $scope.time = '00:00:00';
 
     let data = null;
 
@@ -37,33 +41,93 @@ angular.module('armsApp').controller('monitor', function($scope, $interval, $sta
         if (!document.hidden) {
 
             console.log('looping');
+
+            monitorManager.getMonitorValues($stateParams.id).then(function(monitorValues){
+
+                if (monitorValues["WSCGetCRIOInstrumentStatus"]["status"] == true) {
+                    let CRIOInstrumentStatus = monitorValues["WSCGetCRIOInstrumentStatus"]["data"];
+                    let date = new Date(Date.parse(CRIOInstrumentStatus["Time and Date"]));
+
+                    $scope.time = ('0' + date.getHours()).slice(-2) + ":" + ('0' + date.getMinutes()).slice(-2) + ":" + ('0' + date.getSeconds()).slice(-2);
+                    $scope.date = ('0' + date.getDate()).slice(-2) + '/' + ('0' + (date.getMonth()+1)).slice(-2) + '/' + date.getFullYear();
+
+                    switch (CRIOInstrumentStatus["Monitor State"]) {
+                        case "Initializing":
+                            break;
+                        case "Ready":
+                            break;
+                        case "PDR":
+                            break;
+                    }
+
+                    //CRIOInstrumentStatus["WeatherData"]["r1"]["windDirAvg"]
+                    //CRIOInstrumentStatus["WeatherData"]["r1"]["windSpdAvg"]
+                    //CRIOInstrumentStatus["WeatherData"]["r2"]["airTemp"]
+                    //CRIOInstrumentStatus["WeatherData"]["r2"]["relHumid"]
+                    //CRIOInstrumentStatus["WeatherData"]["r2"]["airPress"]
+                    //CRIOInstrumentStatus["WeatherData"]["r3"]["precipitation"]
+
+                    //CRIOInstrumentStatus["Leq (1s dBLin)"]
+                    //CRIOInstrumentStatus["Leq (1s dBA)"]
+
+                    let x = CRIOInstrumentStatus["Level - X (1s RMS)"];
+                    let y = CRIOInstrumentStatus["Level - Y (1s RMS)"];
+                    let z = CRIOInstrumentStatus["Level - Z (1s RMS)"];
+
+                    let sound_linear = CRIOInstrumentStatus["Leq (1s dBLin)"];
+                    let sound_a = CRIOInstrumentStatus["Leq (1s dBA)"];
+
+                    x = x*1000000;
+                    y = y*1000000;
+                    z = z*1000000;
+                    
+                    data = {
+                        //"date": CRIOInstrumentStatus["Time and Date"],
+                        //"date": Date.parse(CRIOInstrumentStatus["Time and Date"]),
+                        "date": date,
+                        "X": x,
+                        "Y": y,
+                        "Z": z
+                    };
+
+                    $scope.vibrationTSC.pushData(data);
+
+                    $scope.xVibration = x;
+                    $scope.yVibration = y;
+                    $scope.zVibration = z;
+
+                    data = {
+                        "date": date,
+                        "dBA": sound_a,
+                        "dB": sound_linear
+                    };
+
+                    $scope.soundTSC.pushData(data);
+
+                    $scope.soundDB = sound_linear;
+                    $scope.soundDBA = sound_a;
+
+
+                }
+                else
+                {
+
+                }
+
+            });
+
+
+
+
+
+
+
             $scope.pc1.animateUpdateProgress(Math.random(), 1000);
             $scope.pc2.animateUpdateProgress(Math.random(), 1000);
 
-            data = {
-                "date": generateCrioStyleDate(),
-                "X": (Math.random() * 500).toString(),
-                "Y": (Math.random() * 1000).toString(),
-                "Z": (Math.random() * 100).toString()
-            };
-
-            $scope.vibrationTSC.pushData(data);
-
-            $scope.xVibration = parseFloat(data["X"]).toFixed(1);
-            $scope.yVibration = parseFloat(data["Y"]).toFixed(1);
-            $scope.zVibration = parseFloat(data["Z"]).toFixed(1);
 
 
-            data = {
-                "date": generateCrioStyleDate(),
-                "dBA": (Math.random() * 100).toString(),
-                "dB": (Math.random() * 100).toString()
-            };
 
-            $scope.soundTSC.pushData(data);
-
-            $scope.soundDB = parseFloat(data["dB"]).toFixed(1);
-            $scope.soundDBA = parseFloat(data["dBA"]).toFixed(1);
 
 
 

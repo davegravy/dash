@@ -63,10 +63,11 @@ angular.module('armsApp').factory('monitorManager', ['$q', '$http', 'cognito',
                     if (sites.hasOwnProperty(key)) {
                         let monitor_type = sites[key]["monitor_type"];
                         let status = sites[key]["status"];
+                        let ip = sites[key]["MODEM"]["ip"];
 
 
                         if (((monitor_type == "nvm") || (monitor_type == "tvm")))  { //filter out instantel and inactive monitors
-                            result.push({"site":key, "device_id":sites[key]["device_id"], "monitor_type":monitor_type, "status":status});
+                            result.push({"site":key, "device_id":sites[key]["device_id"], "monitor_type":monitor_type, "status":status, "ip":ip});
                         }
                     }
                 }
@@ -106,8 +107,49 @@ angular.module('armsApp').factory('monitorManager', ['$q', '$http', 'cognito',
                     return $q.when(null);
                 })
 
-            }
+            },
+
+            getMonitorValues: function(device_id){
+                let token = cognito.getToken('id');
+                //let deferred = $q.defer();
+
+                let formData = "device_id=" + device_id + "&jwt_token=" + token;
+
+                /*let formData = {};
+                 formData.jwt_token = identity.token;
+                 if (use !== undefined) {formData.use = use;}
+                 if (scope !== undefined) {formData.scope = scope;}
+                 console.log(JSON.stringify(formData));*/
+
+                return $http({
+                    method: 'POST',
+                    url: 'https://10.0.1.26/proxy/getMonitorValues',
+                    data: formData,
+                    timeout: 5000,
+                    responseType: 'text',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                })
+                    .then(function(response){
+
+                        //console.log(data);
+
+                        return $q.when(response.data);
+
+                    })
+                    .catch(function(error){
+
+                        console.log("getMonitorValues error");
+                        console.log("getMonitorValues call failed: " + error.data);
+                        return $q.reject(error.status);
+                    });
+
+
+
+            },
+
         }
+
+
 
 
     } ]);

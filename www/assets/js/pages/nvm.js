@@ -160,14 +160,14 @@
 
             var date = new Date();
 
- /*           var initialData = {
-                date: date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds()+" PM "+date.getMonth()+"/"+date.getDay()+"/"+date.getFullYear(),
-                X: "10",
-                Y: "10",
-                Z: "10"
-            };*/
+            /*           var initialData = {
+             date: date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds()+" PM "+date.getMonth()+"/"+date.getDay()+"/"+date.getFullYear(),
+             X: "10",
+             Y: "10",
+             Z: "10"
+             };*/
             this.data = [];
-/*            this.data.push(initialData);*/
+            /*            this.data.push(initialData);*/
 
             // Basic setup
             // ------------------------------
@@ -275,8 +275,8 @@
         // Set terms of transition on date change
         change() {
             /*d3.transition()
-                .duration(250)
-                .each(this.redraw);*/
+             .duration(250)
+             .each(this.redraw);*/
         }
 
 
@@ -304,12 +304,12 @@
             // Only retrieve data from the selected series using nest
 
             //var data2 = JSON.parse(
-             //   '[{"date":"04:01:40.198 PM 04/04/2017","X":"10","Y":"70","Z":"80"},{"date":"04:01:41.220 PM 04/04/2017","X":"50","Y":"40","Z":"40"},{"date":"04:01:42.222 PM 04/04/2017","X":"10","Y":"85","Z":"75"},{"date":"04:01:43.198 PM 04/04/2017","X":"13","Y":"75","Z":"60"},{"date":"04:01:44.233 PM 04/04/2017","X":"10","Y":"95","Z":"75"},{"date":"04:01:45.198 PM 04/04/2017","X":"15","Y":"86","Z":"80"},{"date":"04:01:46.211 PM 04/04/2017","X":"10","Y":"93","Z":"70"}]');
+            //   '[{"date":"04:01:40.198 PM 04/04/2017","X":"10","Y":"70","Z":"80"},{"date":"04:01:41.220 PM 04/04/2017","X":"50","Y":"40","Z":"40"},{"date":"04:01:42.222 PM 04/04/2017","X":"10","Y":"85","Z":"75"},{"date":"04:01:43.198 PM 04/04/2017","X":"13","Y":"75","Z":"60"},{"date":"04:01:44.233 PM 04/04/2017","X":"10","Y":"95","Z":"75"},{"date":"04:01:45.198 PM 04/04/2017","X":"15","Y":"86","Z":"80"},{"date":"04:01:46.211 PM 04/04/2017","X":"10","Y":"93","Z":"70"}]');
 
-/*
-            console.log("data: " + JSON.stringify(this.data));
-            console.log("this color.domain: " + this.color.domain);
-*/
+            /*
+             console.log("data: " + JSON.stringify(this.data));
+             console.log("this color.domain: " + this.color.domain);
+             */
             //console.log("param color.domain: " + param.color.domain);
 
 
@@ -323,13 +323,14 @@
 
             // Setting up color map
             let linedata = this.color.domain().map((name) => {
-               // console.log("name1: " + name);
+                // console.log("name1: " + name);
                 return {
                     name: name,
                     values: this.data.map(function(d) { //iterates through data array
-/*                        console.log(JSON.stringify(d));
-                        console.log(d.date);*/
-                        return {name: name, date: d3.time.format("%I:%M:%S.%L %p %m/%d/%Y").parse(d.date), value: parseFloat(d[name], 10)};
+                        /*                        console.log(JSON.stringify(d));
+                         console.log(d.date);*/
+                        return {name: name, date: d.date, value: d[name]};
+                        //return {name: name, date: d.date, value: parseFloat(d[name], 10)};
                     })
                 };
             });
@@ -388,38 +389,38 @@
                 .style("stroke", (d) => { return this.color(d.name); })
                 .style('opacity', 1)
                 .attr("d", (d) => { return this.line(d.values[0]); });
-                //.transition()
-                /*.duration(500)
-                //TODO: optimize?
-                .delay(function(d, i) {return i * 200; })
-                .style('opacity', 1);*/
+            //.transition()
+            /*.duration(500)
+             //TODO: optimize?
+             .delay(function(d, i) {return i * 200; })
+             .style('opacity', 1);*/
 
             // Append circles
             // ------------------------------
 
-/*            lines                                                                               //uncomment for circles
+            /*            lines                                                                               //uncomment for circles
 
-                .selectAll("circle")
-                .data(function(d) {return d.values; })
-                .enter()
-                .append("circle")
-                .attr("class", "d3-line-circle d3-line-circle-medium")
-                .attr("cx", (d,i) => {return this.x(d.date)})
-                .attr("cy", (d,i) => {return this.y(d.value)})
-                .attr("r", 3)
-                .style('fill', '#fff')
-                .style('opacity', 1)
-                .style("stroke", (d) => { return this.color(d.name); });*/
+             .selectAll("circle")
+             .data(function(d) {return d.values; })
+             .enter()
+             .append("circle")
+             .attr("class", "d3-line-circle d3-line-circle-medium")
+             .attr("cx", (d,i) => {return this.x(d.date)})
+             .attr("cy", (d,i) => {return this.y(d.value)})
+             .attr("r", 3)
+             .style('fill', '#fff')
+             .style('opacity', 1)
+             .style("stroke", (d) => { return this.color(d.name); });*/
 
 
 
             // Add transition
             /*            circles
-                .style('opacity', 1)
-                .transition()
-                .duration(500)
-                .delay(500)
-                .style('opacity', 1);*/
+             .style('opacity', 1)
+             .transition()
+             .duration(500)
+             .delay(500)
+             .style('opacity', 1);*/
 
             // Update chart on date change
             // ------------------------------
@@ -497,47 +498,61 @@
         }
 
         static getLatestDate(arr) {
-        var latestDate = undefined;
-        var currentDate = undefined;
+            var latestDate = undefined;
+            var currentDate = undefined;
 
-        for (var i = 0; i < arr.length; i++) {
+            for (var i = 0; i < arr.length; i++) {
 
-            currentDate = Date.parse(arr[i].date);
-            //console.log(currentDate);
-            //console.log(arr[i].date);
-            if (latestDate === undefined || latestDate < currentDate) {
-                latestDate = currentDate
+                currentDate = Date.parse(arr[i].date);
+                //console.log("currentDate: " + currentDate);
+                //console.log(arr[i].date);
+                if (latestDate === undefined || latestDate < currentDate) {
+                    latestDate = currentDate
 
+                }
             }
+            currentDate=null;
+            return latestDate;
         }
-        currentDate=null;
-        return latestDate;
-    }
 
 
         static stripOldData(arr, timeWindow) {
-        var latestDate = TimeSeriesChart.getLatestDate(arr);
-        //console.log("latestDate: "+ latestDate);
-        //console.log(JSON.stringify(arr));
-        for (var i = arr.length - 1; i >= 0; --i) {
-            if (latestDate - Date.parse(arr[i].date) > timeWindow*1000) {
-                //console.log("splice");
-                arr.splice(i,1);
+            var latestDate = TimeSeriesChart.getLatestDate(arr);
+            //console.log("latestDate: "+ latestDate);
+            //console.log(JSON.stringify(arr));
+            for (var i = arr.length - 1; i >= 0; --i) {
+                if (latestDate - Date.parse(arr[i].date) > timeWindow*1000) {
+                    //console.log("splice");
+                    arr.splice(i,1);
+                }
             }
         }
-    }
 
-        pushData(data){ //TODO: if there's more than X seconds of spread in the data, cull the old stuff or else weird stretching stuff
+        isDateDuplicate(date) {
+
+            for (let i = 0; i < this.data.length; i++)
+            {
+                if (this.data[i].date.getTime() == date.getTime()) {return true;}
+            }
+            return false;
+        }
+
+        pushData(data){
 
             if (!("date") in data) {
                 throw "No date key found";
             }
+            if (this.isDateDuplicate(data.date) == true) {
+                return;
+            }
 
             //console.log(JSON.stringify(data));
-            if (Object.keys(data).length -1 !== this.arrColors.length) {throw "Array size mismatch: " + Object.keys(data).length + "vs " + this.arrColors.length;}
+                if (Object.keys(data).length -1 !== this.arrColors.length) {throw "Array size mismatch: " + Object.keys(data).length + "vs " + this.arrColors.length;}
 
             this.data.push(data);
             //console.log(JSON.stringify(this.data));
+
+
 
             TimeSeriesChart.stripOldData(this.data, this.timeWindow);
 
