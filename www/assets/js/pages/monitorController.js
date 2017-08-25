@@ -1,4 +1,6 @@
-angular.module('armsApp').controller('monitor', function($scope, $interval, $stateParams, monitorManager){
+angular.module('armsApp').controller('monitor', function($scope, $rootScope, $interval, $stateParams, monitorManager ){
+
+
 
 
 
@@ -38,13 +40,15 @@ angular.module('armsApp').controller('monitor', function($scope, $interval, $sta
 
 
     $scope.Timer = $interval(function(){
-        if (!document.hidden) {
+        if (!document.hidden && !$rootScope.idleFlag) {
 
             console.log('looping');
 
             monitorManager.getMonitorValues($stateParams.id).then(function(monitorValues){
 
                 if (monitorValues["WSCGetCRIOInstrumentStatus"]["status"] == true) {
+                    $scope.crio_status=true;
+
                     let CRIOInstrumentStatus = monitorValues["WSCGetCRIOInstrumentStatus"]["data"];
                     let date = new Date(Date.parse(CRIOInstrumentStatus["Time and Date"]));
 
@@ -67,15 +71,12 @@ angular.module('armsApp').controller('monitor', function($scope, $interval, $sta
                     //CRIOInstrumentStatus["WeatherData"]["r2"]["airPress"]
                     //CRIOInstrumentStatus["WeatherData"]["r3"]["precipitation"]
 
-                    //CRIOInstrumentStatus["Leq (1s dBLin)"]
-                    //CRIOInstrumentStatus["Leq (1s dBA)"]
+                    let x = parseFloat(CRIOInstrumentStatus["Level - X (1s RMS)"]);
+                    let y = parseFloat(CRIOInstrumentStatus["Level - Y (1s RMS)"]);
+                    let z = parseFloat(CRIOInstrumentStatus["Level - Z (1s RMS)"]);
 
-                    let x = CRIOInstrumentStatus["Level - X (1s RMS)"];
-                    let y = CRIOInstrumentStatus["Level - Y (1s RMS)"];
-                    let z = CRIOInstrumentStatus["Level - Z (1s RMS)"];
-
-                    let sound_linear = CRIOInstrumentStatus["Leq (1s dBLin)"];
-                    let sound_a = CRIOInstrumentStatus["Leq (1s dBA)"];
+                    let sound_linear = parseFloat(CRIOInstrumentStatus["Leq (1s dBLin)"]);
+                    let sound_a = parseFloat(CRIOInstrumentStatus["Leq (1s dBA)"]);
 
                     x = x*1000000;
                     y = y*1000000;
@@ -92,9 +93,9 @@ angular.module('armsApp').controller('monitor', function($scope, $interval, $sta
 
                     $scope.vibrationTSC.pushData(data);
 
-                    $scope.xVibration = x;
-                    $scope.yVibration = y;
-                    $scope.zVibration = z;
+                    $scope.xVibration = x.toFixed(0);
+                    $scope.yVibration = y.toFixed(0);
+                    $scope.zVibration = z.toFixed(0);
 
                     data = {
                         "date": date,
@@ -104,14 +105,25 @@ angular.module('armsApp').controller('monitor', function($scope, $interval, $sta
 
                     $scope.soundTSC.pushData(data);
 
-                    $scope.soundDB = sound_linear;
-                    $scope.soundDBA = sound_a;
+                    $scope.soundDB = sound_linear.toFixed(1);
+                    $scope.soundDBA = sound_a.toFixed(1);
 
 
                 }
                 else
                 {
+                    $scope.crio_status=false;
 
+                }
+                if (monitorValues["WSCGetWebrelayState"]["status"] == true) {
+                    $scope.webrelay_status = true;
+                    if (monitorValues["WSCGetWebrelayState"]["data"]["datavalues"]["relay1state"] == "1" && monitorValues["WSCGetWebrelayState"]["data"]["datavalues"]["relay2state"] == "1") {
+                        $scope.webrelay_pos = true;
+                    }
+                    else {$scope.webrelay_pos = false;}
+
+                }else {
+                    $scope.webrelay_status = false;
                 }
 
             });

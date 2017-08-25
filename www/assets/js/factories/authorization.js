@@ -14,7 +14,7 @@ angular.module('armsApp').factory('authorization', ['$rootScope', '$state', 'cog
                             function(session){
                                 if (session) { //if the user is authenticated
 
-                                    //console.log('user is authenticated');
+                                    console.log('user is authenticated');
 
                                     return cognito.isInAnyRole($rootScope.toState.data.roles).then(
                                         function(value){
@@ -26,6 +26,7 @@ angular.module('armsApp').factory('authorization', ['$rootScope', '$state', 'cog
                                                 $state.go('root.error_403', {}, {location: false});
                                                 return false;
                                             }
+                                            return $q.when(true);
 
                                         }).catch(
 

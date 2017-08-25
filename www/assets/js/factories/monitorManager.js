@@ -1,6 +1,6 @@
-angular.module('armsApp').factory('monitorManager', ['$q', '$http', 'cognito',
+angular.module('armsApp').factory('monitorManager', ['$q', '$http', 'cognito', 'authorization',
 
-    function($q, $http, cognito) {
+    function($q, $http, cognito, authorization) {
 
         let _sites = {};
 
@@ -140,6 +140,19 @@ angular.module('armsApp').factory('monitorManager', ['$q', '$http', 'cognito',
 
                         console.log("getMonitorValues error");
                         console.log("getMonitorValues call failed: " + error.data);
+                        console.log("error status:" + error.status);
+
+
+                        if (error.status == 401) {
+                            console.log("authentication error, attempting re-authentication");
+                            authorization.authorize().then(function (result) {
+                                console.log("authorization result: " + result);
+
+                            });
+                        }
+
+                        //TODO handle other error types (e.g. 503 - service unavailable)
+
                         return $q.reject(error.status);
                     });
 

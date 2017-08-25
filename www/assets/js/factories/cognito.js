@@ -31,23 +31,26 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
             },
 
             getSession: function () {
-                //console.log("getSession");
+                console.log("getSession");
                 let deferred = $q.defer();
 
                 if (!this.getUserLocal()) {
                     deferred.resolve(null);
-                    //console.log("getSession: no cached cognitoUser");
+                    console.log("getSession: no cached cognitoUser");
                     return deferred.promise;
                 }
-                if (!_cognitoUserSession) {
-                    //console.log("getSession: no cognitoUserSession");
+                if (!_cognitoUserSession || !_cognitoUserSession.isValid()) {
+
+                    if (!_cognitoUserSession) {console.log("getSession: no cognitoUserSession");}
+                    else if (!_cognitoUserSession.isValid()) {console.log("getSession: no cognitoUserSession");}
+
                     _cognitoUser.getSession(function(err,session) {
 
                         if (err) {
-                            //alert("getSession Error:" + err);
+                            console.log("getSession Error:" + err);
                             return deferred.reject(err);
                         } else {
-                            //console.log("getSession: cognitoUserSession fetched from cognito");
+                            console.log("getSession: cognitoUserSession fetched from cognito");
                             _cognitoUserSession = session;
                             deferred.resolve(_cognitoUserSession);
                         }
@@ -56,10 +59,11 @@ angular.module('armsApp').factory('cognito', ['$q', '$http',
                 }
 
                 if (_cognitoUserSession && _cognitoUserSession.isValid()) {
-                    //console.log("getSession: valid cognitoUserSession cached in RAM");
+                    console.log("getSession: valid cognitoUserSession retrieved");
                     deferred.resolve(_cognitoUserSession);
                 }
                 else
+                    console.log("getSession: could not get valid cognitoUserSession");
                     deferred.resolve(null);
 
                 return deferred.promise;

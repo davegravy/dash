@@ -1,4 +1,5 @@
-let armsApp = angular.module('armsApp', ['ui.router']);
+let armsApp = angular.module('armsApp', ['ui.router', 'ngIdle']);
+
 
 
 armsApp.run(function(){
@@ -18,14 +19,14 @@ armsApp.config(function($stateProvider, $urlRouterProvider) {
 
             },
             resolve: {
-/*
-                authorize: ['authorization',
-                    function(authorization) {
-                        console.log('stateProvider resolve');
-                        return authorization.authorize();
-                    }
-                ],
-*/
+                /*
+                 authorize: ['authorization',
+                 function(authorization) {
+                 console.log('stateProvider resolve');
+                 return authorization.authorize();
+                 }
+                 ],
+                 */
 
                 //asset2: function() {loadScript("assets/js/pages/layout_fixed_custom.js");}
             }
@@ -33,18 +34,18 @@ armsApp.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('root.monitor', {
-                url: '/monitor/{id}',
-                views: {
-                    'sidebar': {templateUrl: 'main_sidebar.html'},
-                    'container': {templateUrl: 'partial-monitor.html'}
-                },
-                data: {
-                    roles: ['arn:aws:iam::144349053222:role/ARMS-app-user']
-                },
-                resolve: {
-                    asset1: function () {loadScript("assets/js/core/limitless-app.js");},
-                    //asset2: function() {loadScript("assets/js/pages/layout_fixed_custom.js");}
-                }
+            url: '/monitor/{id}',
+            views: {
+                'sidebar': {templateUrl: 'main_sidebar.html'},
+                'container': {templateUrl: 'partial-monitor.html'}
+            },
+            data: {
+                roles: ['arn:aws:iam::144349053222:role/ARMS-app-user']
+            },
+            resolve: {
+                asset1: function () {loadScript("assets/js/core/limitless-app.js");},
+                //asset2: function() {loadScript("assets/js/pages/layout_fixed_custom.js");}
+            }
 
 
 
@@ -99,12 +100,36 @@ armsApp.config(function($stateProvider, $urlRouterProvider) {
         })
 
 
+}).config(function(IdleProvider){
+    IdleProvider.idle(900);
+    IdleProvider.timeout(0);
 });
 
 armsApp.run(function($trace) {
     //$trace.enable('TRANSITION');
 });
 
+armsApp.run(function(Idle, $rootScope, $timeout) {
+
+    $rootScope.idleFlag = false;
+
+    Idle.watch();
+
+    $rootScope.$on('IdleStart', function() {
+        console.log("IdleStart");
+        $rootScope.idleFlag = true;
+        $('#idle_modal').modal('show');
+    });
+
+    $rootScope.$on('IdleEnd', function() {
+        console.log("IdleEnd");
+        $rootScope.idleFlag = false;
+        $timeout(()=>{
+            console.log('delaying hide');
+            $('#idle_modal').modal('hide');},2000);
+
+    });
+});
 
 
 armsApp.run(function($rootScope, $state, $transitions, $stateParams, authorization){
@@ -134,6 +159,7 @@ armsApp.run(function($rootScope, $state, $transitions, $stateParams, authorizati
 
         /* if (principal.isIdentityResolved()) TODO:figure out why this was here originally*/
         return authorization.authorize().then(function(response) {
+            console.log("authorize() response: " + response);
             return response;
         });
         //return authorization.testAsyncFunction().then(function(response) {return response});

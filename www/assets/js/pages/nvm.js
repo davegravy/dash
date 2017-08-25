@@ -533,6 +533,8 @@
             for (let i = 0; i < this.data.length; i++)
             {
                 if (this.data[i].date.getTime() == date.getTime()) {return true;}
+                if (Math.abs(date.getTime() - this.data[i].date.getTime()) < 500) {console.log("time difference: " + (date.getTime() - this.data[i].date.getTime()));}
+                if (date.getTime() - this.data[i].date.getTime < 0 ) {console.log("out of order. time difference: " + (date.getTime() - this.data[i].date.getTime()));}
             }
             return false;
         }
