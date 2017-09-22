@@ -9,9 +9,7 @@
 *
 * ---------------------------------------------------------------------------- */
 
-$(function() {
-
-	// Style checkboxes and radios
-	$('.styled').uniform();
-
+$(() => {
+  // Style checkboxes and radios
+  $('.styled').uniform();
 });

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="AWS" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/www/assets/js/plugins/storage/aws-sdk-2.106.0.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/www/assets/js/plugins/storage/aws-sdk-2.106.0.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

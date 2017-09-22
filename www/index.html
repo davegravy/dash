@@ -22,21 +22,27 @@
     <script type="text/javascript" src="assets/js/core/libraries/angular.min.js"></script>
     <script type="text/javascript" src="assets/js/core/libraries/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="assets/js/core/libraries/angular-idle.min.js"></script>
-
+    <script type="text/javascript" src="assets/js/core/libraries/ocLazyLoad.js"></script>
 
     <script type="text/javascript" src="assets/js/plugins/visualization/d3/d3.min.js"></script>
 
+    <script type="text/javascript" src="assets/js/plugins/storage/aws-sdk-2.106.0.js"></script>
     <script type="text/javascript" src="assets/js/plugins/auth/aws-cognito-sdk.min.js"></script>
     <script type="text/javascript" src="assets/js/plugins/auth/amazon-cognito-identity.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
+
 <!--    <script type="text/javascript" src="assets/js/plugins/adeleteable-core.jse.js"></script>-->
     <script type="text/javascript" src="assets/js/app.js"></script>
     <script type="text/javascript" src="assets/js/pages/loginController.js"></script>
     <script type="text/javascript" src="assets/js/pages/monitorController.js"></script>
+    <script type="text/javascript" src="assets/js/pages/historicalController.js"></script>
+    <script type="text/javascript" src="assets/js/pages/reportsController.js"></script>
     <script type="text/javascript" src="assets/js/pages/navbarController.js"></script>
     <script type="text/javascript" src="assets/js/pages/sidebarController.js"></script>
     <script type="text/javascript" src="assets/js/factories/authorization.js"></script>
     <script type="text/javascript" src="assets/js/factories/cognito.js"></script>
     <script type="text/javascript" src="assets/js/factories/monitorManager.js"></script>
+    <script type="text/javascript" src="assets/js/factories/historicalManager.js"></script>
 
 
     <!--<script type="text/javascript" src="assets/js/plugins/visualization/d3/d3_tooltip.js"></script>-->
@@ -78,7 +84,7 @@
                         console.log ("error");
                     }
                 });
-                $( "#main_content" ).load( "main_content.html", function( response, status, xhr ) {
+                $( "#main_content" ).load( "deletable_main_content.html", function( response, status, xhr ) {
                     if ( status == "error" ) {
                         console.log ("error");
                     }

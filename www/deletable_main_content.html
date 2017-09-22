@@ -1,4 +1,4 @@
-<script type="text/javascript" src="assets/js/pages/nvm.js"></script>
+<script type="text/javascript" src="assets/js/pages/monitorUIElements.js"></script>
 
 <script type="text/javascript">
 
@@ -62,8 +62,8 @@
         var vibrationTSC = new TimeSeriesChart('#vibration-tsc', 255,["#558B2F", "#EF6C00", "#0277BD"],15,"acceleration (ug)"); // initialize chart
         var soundTSC = new TimeSeriesChart('#sound-tsc', 255,["#6A1B9A", "#AD1457"],15,"pressure (dB re 20uPa)"); // initialize chart
 
-        pc1.updateProgress(0.68);
-        pc2.updateProgress(0.68);
+        dsr_pc.updateProgress(0.68);
+        voltage_pc.updateProgress(0.68);
 
         var xElem = $('#x-rms');
         var yElem = $('#y-rms');
@@ -78,8 +78,8 @@
             //console.log("here4_repeat");
             if (!document.hidden) {
 
-                pc1.animateUpdateProgress(Math.random(), 1000);
-                pc2.animateUpdateProgress(Math.random(), 1000);
+                dsr_pc.animateUpdateProgress(Math.random(), 1000);
+                voltage_pc.animateUpdateProgress(Math.random(), 1000);
 
 
 

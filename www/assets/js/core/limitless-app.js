@@ -54,7 +54,7 @@ $(function() {
     // -------------------------
 
     // Add control button toggler to page and panel headers if have heading elements
-    $('.panel-footer').has('> .heading-elements:not(.not-collapsible)').prepend('<a class="heading-elements-toggle"><i class="icon-more"></i></a>');
+/*    $('.panel-footer').has('> .heading-elements:not(.not-collapsible)').prepend('<a class="heading-elements-toggle"><i class="icon-more"></i></a>');
     $('.page-title, .panel-title').parent().has('> .heading-elements:not(.not-collapsible)').children('.page-title, .panel-title').append('<a class="heading-elements-toggle"><i class="icon-more"></i></a>');
 
 
@@ -64,7 +64,7 @@ $(function() {
     });
     $('.panel-footer .heading-elements-toggle').on('click', function() {
         $(this).parent().toggleClass('has-visible-elements').children('.heading-elements').toggleClass('visible-elements');
-    });
+    });*/
 
 
 
@@ -209,67 +209,6 @@ $(function() {
     // Sidebar categories
     //
 
-    // Hide if collapsed by default
-    $('.category-collapsed').children('.category-content').hide();
-
-
-    // Rotate icon if collapsed by default
-    $('.category-collapsed').find('[data-action=collapse]').addClass('rotate-180');
-
-
-    // Collapse on click
-    $('.category-title [data-action=collapse]').click(function (e) {
-        e.preventDefault();
-        var $categoryCollapse = $(this).parent().parent().parent().nextAll();
-        $(this).parents('.category-title').toggleClass('category-collapsed');
-        $(this).toggleClass('rotate-180');
-
-        containerHeight(); // adjust page height
-
-        $categoryCollapse.slideToggle(150);
-    });
-
-
-    //
-    // Panels
-    //
-
-    // Hide if collapsed by default
-    $('.panel-collapsed').children('.panel-heading').nextAll().hide();
-
-
-    // Rotate icon if collapsed by default
-    $('.panel-collapsed').find('[data-action=collapse]').addClass('rotate-180');
-
-
-    // Collapse on click
-    $('.panel [data-action=collapse]').click(function (e) {
-        e.preventDefault();
-        var $panelCollapse = $(this).parent().parent().parent().parent().nextAll();
-        $(this).parents('.panel').toggleClass('panel-collapsed');
-        $(this).toggleClass('rotate-180');
-
-        containerHeight(); // recalculate page height
-
-        $panelCollapse.slideToggle(150);
-    });
-
-
-
-    // Remove elements
-    // -------------------------
-
-    // Panels
-    $('.panel [data-action=close]').click(function (e) {
-        e.preventDefault();
-        var $panelClose = $(this).parent().parent().parent().parent().parent();
-
-        containerHeight(); // recalculate page height
-
-        $panelClose.slideUp(150, function() {
-            $(this).remove();
-        });
-    });
 
 
     // Sidebar categories

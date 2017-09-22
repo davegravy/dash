@@ -1,0 +1,177 @@
+<div ng-controller="historical">
+    <!-- Page header -->
+    <div class="page-header page-header-default" >
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Historical</span> - <span id="header-monitor-label">{{siteId}}</span></h4>
+                <a class="heading-elements-toggle"><i class="icon-more"></i></a>
+            </div>
+
+
+            <div class="heading-elements">
+                <button type="button" class="btn btn-labeled btn-labeled-right bg-blue dropdown-toggle heading-btn" data-toggle="dropdown" aria-expanded="false">
+                    <b><span class="caret"></span></b> Actions
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-right bg-primary-400">
+                    <!--<li class="dropdown-submenu dropdown-submenu-left"><a><i class="icon-power2"></i> Power</a>
+                        <ul class="dropdown-menu bg-primary-400">
+                            <li ng-style="{display: webrelay_pos ? 'none' : 'list-item'}" ng-click="onPowerOnClicked()"><a> On</a></li>
+                            <li ng-style="{display: (crio_status && webrelay_pos) ? 'list-item' : 'none'}" ng-click="onPowerOffSoftClicked()"><a> Off (soft)</a></li>
+                            <li ng-style="{display: webrelay_pos ? 'list-item' : 'none'}" ng-click="onPowerOffHardClicked()"><a> Off (hard)</a></li>
+                        </ul>
+                    </li>
+                    &lt;!&ndash;<li class="divider"></li>&ndash;&gt;
+                    <li ng-style="{display: (crio_timing_mode == 'Manual' && crio_status) ? 'list-item' : 'none'}" class="dropdown-submenu dropdown-submenu-left"><a><i class="icon-tape"></i> Recording</a>
+                        <ul class="dropdown-menu bg-primary-400">
+                            <li ng-style="{display: crio_pdr ? 'none' : 'list-item'}" ng-click="onStartRecordingClicked()"><a><i class="icon-mic2"></i> On</a></li>
+                            <li ng-style="{display: crio_pdr ? 'list-item' : 'none'}" ng-click="onStopRecordingClicked()"><a><i class="icon-mic-off2"></i> Off</a></li>
+                        </ul>
+                    </li>
+-->
+
+                </ul>
+
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /page header -->
+
+
+    <!-- Content area -->
+    <div class="content" >
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Simple panel -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Info</h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body" style="padding-left:8%;padding-right:8%;">
+                        <div class="text-nowrap">
+                            <!--<div class="col-md-4">-->
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                <div class="content-group" style="">
+                                    <h5 class="text-semibold no-margin"><i class="glyphicon glyphicon-map-marker position-left text-info"></i>{{siteId}}</h5>
+                                    <span class="text-muted text-size-small" style="margin-left:25px;">monitor site</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12 hidden-lg" >
+                                <div class="content-group" style="">
+                                    <h5 class="text-semibold no-margin"><i class="icon-lan position-left text-info"></i>{{ipAddress}}</h5>
+                                    <span class="text-muted text-size-small" style="margin-left:25px;">IP address</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-2 col-sm-6 col-xs-6" >
+                                <div class="content-group" style="">
+                                    <h5 class="text-semibold no-margin"><i class="icon-qrcode position-left text-info"></i>{{monitorIdShort}}</h5>
+                                    <span class="text-muted text-size-small" style="margin-left:25px;">serial no</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-2 col-sm-6 col-xs-4" >
+                                <div class="content-group" style="padding-left:10px;">
+                                    <h5 class="text-semibold no-margin"><i class="icon-chip position-left text-info"></i>{{monitorType}}</h5>
+                                    <span class="text-muted text-size-small" style="margin-left:25px;">type</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6 col-xs-12 hidden-xs hidden-sm hidden-md" >
+                                <div class="content-group" style="">
+                                    <h5 class="text-semibold no-margin"><i class="icon-lan position-left text-info"></i>{{ipAddress}}</h5>
+                                    <span class="text-muted text-size-small" style="margin-left:25px;">IP address</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!--info-->
+            </div>
+            <div class="col-lg-4">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- Simple panel -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Wind Histogram</h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div id="windSpeedHistogram"></div>
+                    </div>
+
+                </div> <!--windbins-->
+            </div>
+        </div>
+    </div>
+    <!-- /simple panel -->
+
+    <div id="idle_modal" class="modal fade" style="display:none;">
+        <div class="modal-dialog modal-xs">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">taking a break...</h5>
+                </div>
+
+                <div class="modal-body" style="display:table;">
+
+                    <div class="icon-object border-slate-300 text-slate-300 position-left"><i class="icon-cup2"></i></div>
+                    <p style="display:table-cell;vertical-align:middle;padding:15px 15px 15px 15px;">you don't seem to be watching, so we've gone for coffee!</p>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="modal_theme_warning" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h6 class="modal-title">Confirm</h6>
+                </div>
+
+                <div class="modal-body">
+                    <h6 class="text-semibold"><i class="position-left" ng-class="confirm_icon"></i>{{confirm_title}}</h6>
+                    <div ng-bind-html="confirm_text"></div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="confirm_function();">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<!-- Footer -->
+<div class="footer text-muted">
+    &copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
+</div>
+<!-- /footer -->
+
+</div>
+<!-- /content area -->

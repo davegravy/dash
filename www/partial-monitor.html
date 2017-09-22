@@ -1,629 +1,311 @@
-<script type="text/javascript" src="assets/js/pages/nvm.js"></script>
+<!--<script type="text/javascript" src="assets/js/pamonitorUIElements.jsm.js"></script>-->
 
-<script type="text/javascript">
-
-    /*
-     var getUrlParameter = function getUrlParameter(sParam) {
-     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-     sURLVariables = sPageURL.split('&'),
-     sParameterName,
-     i;
-
-     for (i = 0; i < sURLVariables.length; i++) {
-     sParameterName = sURLVariables[i].split('=');
-
-     if (sParameterName[0] === sParam) {
-     return sParameterName[1] === undefined ? true : sParameterName[1];
-     }
-     }
-     };
-     */
+<div ng-controller="monitor">
+    <!-- Page header -->
+    <div class="page-header page-header-default" >
+        <div class="page-header-content">
+            <div class="page-title">
+                <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Monitors</span> - <span id="header-monitor-label">{{siteId}}</span></h4>
+                <a class="heading-elements-toggle"><i class="icon-more"></i></a>
+            </div>
 
 
+            <div class="heading-elements">
+                <button type="button" class="btn btn-labeled btn-labeled-right bg-blue dropdown-toggle heading-btn" data-toggle="dropdown" aria-expanded="false">
+                    <b><span class="caret"></span></b> Actions
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-right bg-primary-400">
+                    <li class="dropdown-submenu dropdown-submenu-left"><a><i class="icon-power2"></i> Power</a>
+                        <ul class="dropdown-menu bg-primary-400">
+                            <li ng-style="{display: webrelay_pos ? 'none' : 'list-item'}" ng-click="onPowerOnClicked()"><a> On</a></li>
+                            <li ng-style="{display: (crio_status && webrelay_pos) ? 'list-item' : 'none'}" ng-click="onPowerOffSoftClicked()"><a> Off (soft)</a></li>
+                            <li ng-style="{display: webrelay_pos ? 'list-item' : 'none'}" ng-click="onPowerOffHardClicked()"><a> Off (hard)</a></li>
+                        </ul>
+                    </li>
+                    <!--<li class="divider"></li>-->
+                    <li ng-style="{display: (crio_timing_mode == 'Manual' && crio_status) ? 'list-item' : 'none'}" class="dropdown-submenu dropdown-submenu-left"><a><i class="icon-tape"></i> Recording</a>
+                        <ul class="dropdown-menu bg-primary-400">
+                            <li ng-style="{display: crio_pdr ? 'none' : 'list-item'}" ng-click="onStartRecordingClicked()"><a><i class="icon-mic2"></i> On</a></li>
+                            <li ng-style="{display: crio_pdr ? 'list-item' : 'none'}" ng-click="onStopRecordingClicked()"><a><i class="icon-mic-off2"></i> Off</a></li>
+                        </ul>
+                    </li>
 
 
-    /*  $(document).ready(function() {
-     //alert(getUrlParameter('nav') + ':' + getUrlParameter("device_id"));
-
-     $("#header-monitor-label").html("RCSM-MC");
-
-     // Initialize charts
-     var pc1 = new ProgressCounter('#disk-space-remaining', 38, 2, "#F06292", 0.68, "icon-drive text-pink-400", 'drive space remaining', '20,000MB');
-     var pc2 = new ProgressCounter('#battery-voltage', 38, 2, "#F06292", 0.68, "icon-battery-6 text-pink-400", 'battery voltage', '12.2V');
-     var vibrationTSC = new TimeSeriesChart('#vibration-tsc', 255,["#558B2F", "#EF6C00", "#0277BD"],15,"acceleration (ug)"); // initialize chart
-     var soundTSC = new TimeSeriesChart('#sound-tsc', 255,["#6A1B9A", "#AD1457"],15,"pressure (dB re 20uPa)"); // initialize chart
-
-     pc1.updateProgress(0.68);
-     pc2.updateProgress(0.68);
-
-     var xElem = $('#x-rms');
-     var yElem = $('#y-rms');
-     var zElem = $('#z-rms');
-     var dbElem = $('#db');
-     var dbaElem= $('#dba');
-
-     var data = null;
-
-
-     (function move() {
-     //console.log("here4_repeat");
-     if (!document.hidden) {
-
-     pc1.animateUpdateProgress(Math.random(), 1000);
-     pc2.animateUpdateProgress(Math.random(), 1000);
-
-
-
-
-     data = {
-     "date": generateCrioStyleDate(),
-     "X":(Math.random()*500).toString(),
-     "Y":(Math.random()*1000).toString(),
-     "Z":(Math.random()*100).toString()
-     };
-
-     //vibrationTSC.pushData(data);
-
-     xElem.empty();
-     yElem.empty();
-     zElem.empty();
-
-     xElem.text(parseFloat(data["X"]).toFixed(1));
-     yElem.text(parseFloat(data["Y"]).toFixed(1));
-     zElem.text(parseFloat(data["Z"]).toFixed(1));
-
-
-     data = {
-     "date": generateCrioStyleDate(),
-     "dBA":(Math.random()*100).toString(),
-     "dB":(Math.random()*100).toString()
-     };
-
-     //soundTSC.pushData(data);
-
-     dbElem.empty();
-     dbaElem.empty();
-
-     dbElem.text(parseFloat(data["dB"]).toFixed(1));
-     dbaElem.text(parseFloat(data["dBA"]).toFixed(1));
-
-     data=null;
-
-     }
-     setTimeout(move, 1000);
-     })();
-
-
-     });*/
-
-</script>
-
-<!-- Page header -->
-<div class="page-header page-header-default" >
-    <div class="page-header-content">
-        <div class="page-title">
-            <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Monitors</span> - <span id="header-monitor-label">RCSM-MC</span></h4>
-        </div>
-
-        <div class="heading-elements">
-            <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
-        </div>
-    </div>
-
-    <div class="breadcrumb-line">
-        <ul class="breadcrumb">
-            <li><a href="index2.html"><i class="icon-home2 position-left"></i> Home</a></li>
-            <li><a href="main_navbar.html">Starters</a></li>
-            <li class="active">Fixed layout</li>
-        </ul>
-
-        <ul class="breadcrumb-elements">
-            <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="icon-gear position-left"></i>
-                    Dropdown
-                    <span class="caret"></span>
-                </a>
-
-                <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                    <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                    <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
                 </ul>
-            </li>
-        </ul>
+
+
+            </div>
+        </div>
+
     </div>
-</div>
-<!-- /page header -->
+    <!-- /page header -->
 
 
-<!-- Content area -->
-<div class="content" ng-controller="monitor">
-
-    <div class="col-lg-8">
-        <!-- Simple panel -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Info</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="container-fluid" style="margin-left:30px;">
-                <div class="row text-nowrap">
-                    <!--<div class="col-md-4">-->
-                    <div class="col-lg-6">
-                        <div class="col-xs-6">
-                            <div class="content-group">
-                                <h5 class="text-semibold no-margin"><i class="glyphicon glyphicon-map-marker position-left text-info"></i>{{siteId}}</h5>
-                                <span class="text-muted text-size-small" style="margin-left:25px;">monitor site</span>
-                            </div>
-
-                        </div>
-
-
-                        <div class="col-xs-6">
-                            <div class="content-group">
-                                <h5 class="text-semibold no-margin"><i class="icon-qrcode position-left text-info"></i>{{monitorIdShort}}</h5>
-                                <span class="text-muted text-size-small" style="margin-left:25px;">serial no</span>
-                            </div>
-
+    <!-- Content area -->
+    <div class="content" >
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Simple panel -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Info</h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-lg-6">
 
-
-                        <div class="col-xs-6">
-                            <div class="content-group">
-                                <h5 class="text-semibold no-margin"><i class="icon-lan position-left text-info"></i>{{ipAddress}}</h5>
-                                <span class="text-muted text-size-small" style="margin-left:25px;">IP address</span>
-                            </div>
-
-                        </div>
-
-
-                        <div class="col-xs-6">
-                            <div class="content-group">
-                                <h5 class="text-semibold no-margin"><i class="icon-chip position-left text-info"></i>{{monitorType}}</h5>
-                                <span class="text-muted text-size-small" style="margin-left:25px;">type</span>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row text-nowrap" style="margin-bottom:20px;">
-                    <div class="col-lg-6">
-                        <div class="col-xs-6">
-                            <div class="content-group">
-                                <h5 class="text-semibold no-margin" ng-style="{opacity: crio_status ? '1' : '0.2'}"><i class="icon-calendar3 position-left text-info"></i>{{date}}</h5>
-                                <span class="text-muted text-size-small" style="margin-left:25px;">date</span>
-                            </div>
-
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="content-group">
-                                <h5 class="text-semibold no-margin" ng-style="{opacity: crio_status ? '1' : '0.2'}"><i class="glyphicon glyphicon-time position-left text-info"></i>{{time}}</h5>
-                                <span class="text-muted text-size-small"style="margin-left:25px;" >time (utc)</span>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="col-xs-6">
-                    </div>
-                </div>
-            </div>
-
-        </div> <!--info-->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Sensors</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="panel-body">
-                <div class="content-group-sm" id="vibration-tsc" ng-style="{opacity: crio_status ? '1' : '0.2'}"></div>
-                <div class="container-fluid">
-                    <div class="row text-center" ng-style="{opacity: crio_status ? '1' : '0.2'}">
-                        <div class="col-xs-4">
-                            <div class="content-group">
-                                <h5 class="text-semibold no-margin"><i class="icon-wave2 position-left text-green-800"></i><span id="x-rms">{{xVibration}}</span></h5>
-                                <span class="text-muted text-size-small">X RMS (ug)</span>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-4">
-                            <div class="content-group">
-                                <h5 class="text-semibold no-margin"><i class="icon-wave2 position-left text-orange-800"></i><span id="y-rms">{{yVibration}}</span></h5>
-                                <span class="text-muted text-size-small">Y RMS (ug)</span>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-4">
-                            <div class="content-group">
-                                <h5 class="text-semibold no-margin"><i class="icon-wave2 position-left text-blue-800"></i><span id="z-rms">{{zVibration}}</span></h5>
-                                <span class="text-muted text-size-small">Z RMS (ug)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr/>
-                <div class="content-group-sm" id="sound-tsc" ng-style="{opacity: crio_status ? '1' : '0.2'}"></div>
-                <div class="container-fluid">
-                    <div class="row text-center" ng-style="{opacity: crio_status ? '1' : '0.2'}">
-                        <div class="col-xs-6">
-                            <div class="content-group">
-                                <h5 class="text-semibold no-margin"><i class="icon-wave2 position-left text-violet-800"></i><span id="dba">{{soundDBA}}</span></h5>
-                                <span class="text-muted text-size-small">RMS (dBA)</span>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="content-group">
-                                <h5 class="text-semibold no-margin"><i class="icon-wave2 position-left text-pink-800"></i><span id="db">{{soundDB}}</span></h5>
-                                <span class="text-muted text-size-small">RMS (dB)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!--sensors-->
-    </div>
-    <div class="col-lg-4">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Health</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="panel-body">
-                <div class="col-xs-6 text-center">
-                    <div class="content-group-sm svg-center position-relative" id="disk-space-remaining" ng-style="{opacity: crio_status ? '1' : '0.2'}"></div>
-                </div>
-                <div class="col-xs-6 text-center">
-                    <div class="content-group-sm svg-center position-relative" id="battery-voltage"></div>
-                </div>
-            </div>
-        </div> <!--health-->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Status</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="panel-body text-nowrap">
-                <!--<div class="col-xs-6 col-md-6 col-lg-10 text-nowrap">-->
-                    <table class = "table" style="width:80%;margin-left:auto;margin-right:auto;">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <i class="icon-cube text-info" style="padding-right:10px;"></i>modem/gateway
-                            </td>
-                            <td>
-                                <span class="badge" ng-class="{'bg-success':webrelay_status || crio_status,'bg-danger-400':!webrelay_status && !crio_status}" ><i class="icon-pulse2"></i></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i class="icon-cube text-info" style="padding-right:10px;"></i>webrelay
-                            </td>
-                            <td>
-                                <span class="badge" ng-class="{'bg-success':webrelay_status,'bg-danger-400':!webrelay_status}"><i class="icon-pulse2"></i></span>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <i class="icon-switch22 text-info" style="padding-right:10px;"></i>relay position
-                            </td>
-                            <td ng-style="{opacity: webrelay_status ? '1' : '0.2'}">
-                                <span class="badge" ng-class="{'bg-success':webrelay_pos,'bg-danger-400':!webrelay_pos}"><i class="icon-switch2"></i></span>
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i class="icon-cube text-info" style="padding-right:10px;"></i>cRIO
-                            </td>
-                            <td ng-style="{opacity: webrelay_pos && crio_status ? '1' : '0.2'}">
-                                <span class="badge bg-success"><i class="icon-pause"></i></span>
-                                <span class="badge" ng-class="{'bg-success':crio_status,'bg-danger-400':!crio_status}"><i class="icon-pulse2"></i></span>
-                            </td>
-
-                        </tr>
-
-                        </tbody>
-
-                    </table>
-             <!--   </div>-->
-
-                <!--                <div class="col-xs-6 col-md-6 col-lg-10 text-nowrap" style="float:none;margin:0 auto;">
-                                    <ul class="media-list" style="margin-bottom:20px;">
-                                        <li class="media"> <div class="media-left" style="padding-left:20px;"><i class="icon-cube"></i></div><div class="media-body" style="padding-right:20px;">modem/gateway<span class="badge bg-success pull-right"><i class="icon-pulse2"></i></span></div></li>
-                                        <hr/>
-                                        <li class="media"> <div class="media-left" style="padding-left:20px;"><i class="icon-cube"></i></div><div class="media-body" style="padding-right:20px;">webrelay<span class="badge bg-success pull-right"><i class="icon-pulse2"></i></span></div></li>
-                                        <hr/>
-                                        <li class="media"> <div class="media-left" style="padding-left:20px;"><i class="icon-switch22"></i></div><div class="media-body" style="padding-right:20px;">relay position<span class="badge bg-success pull-right"><i class="icon-switch2"></i></span></div></li>
-                                        <hr/>
-                                        <li class="media"> <div class="media-left" style="padding-left:20px;"><i class="icon-cube"></i></div><div class="media-body" style="padding-right:20px;">cRIO<div class="pull-right"><span class="badge bg-success" style="margin-right:7px;"><i class="icon-pause" ></i></span><span class="badge bg-success"><i class="icon-pulse2"></i></span></div></div></li>
-                                    </ul>
-                                </div>-->
-
-
-                <!--                <div class="col-md-6 text-center">
-                                    <div class="content-group-sm svg-center position-relative" id="disk-space-remaining2"></div>
+                    <div class="panel-body" style="padding-left:8%;padding-right:8%;">
+                        <div class="text-nowrap">
+                            <!--<div class="col-md-4">-->
+                            <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
+                                <div class="content-group" style="">
+                                    <h5 class="text-semibold no-margin"><i class="glyphicon glyphicon-map-marker position-left text-info"></i>{{siteId}}</h5>
+                                    <span class="text-muted text-size-small" style="margin-left:25px;">monitor site</span>
                                 </div>
-                                <div class="col-md-6 text-center">
-                                    <div class="content-group-sm svg-center position-relative" id="battery-voltage2"></div>
-                                </div>-->
+                            </div>
+                            <div class="col-md-8 col-sm-6 col-xs-12 hidden-lg" >
+                                <div class="content-group" style="">
+                                    <h5 class="text-semibold no-margin"><i class="icon-lan position-left text-info"></i>{{ipAddress}}</h5>
+                                    <span class="text-muted text-size-small" style="margin-left:25px;">IP address</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-4 col-sm-6 col-xs-6" >
+                                <div class="content-group" style="">
+                                    <h5 class="text-semibold no-margin"><i class="icon-qrcode position-left text-info"></i>{{monitorIdShort}}</h5>
+                                    <span class="text-muted text-size-small" style="margin-left:25px;">serial no</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-md-3 col-sm-6 col-xs-4" >
+                                <div class="content-group" style="padding-left:10px;">
+                                    <h5 class="text-semibold no-margin"><i class="icon-chip position-left text-info"></i>{{monitorType}}</h5>
+                                    <span class="text-muted text-size-small" style="margin-left:25px;">type</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12 hidden-xs hidden-sm hidden-md" >
+                                <div class="content-group" style="">
+                                    <h5 class="text-semibold no-margin"><i class="icon-lan position-left text-info"></i>{{ipAddress}}</h5>
+                                    <span class="text-muted text-size-small" style="margin-left:25px;">IP address</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-3 col-sm-6 col-xs-6" >
+                                <div class="content-group">
+                                    <h5 class="text-semibold no-margin" ng-style="{opacity: crio_status ? '1' : '0.2'}"><i class="icon-calendar3 position-left text-info"></i>{{date}}</h5>
+                                    <span class="text-muted text-size-small" style="margin-left:25px;">date</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-4" >
+                                <div class="content-group" style="padding-left:10px;">
+                                    <h5 class="text-semibold no-margin" ng-style="{opacity: crio_status ? '1' : '0.2'}"><i class="glyphicon glyphicon-time position-left text-info"></i>{{time}}</h5>
+                                    <span class="text-muted text-size-small"style="margin-left:25px;" >time (utc)</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div> <!--info-->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Sensors</h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="content-group-sm" id="vibration-tsc" ng-style="{opacity: crio_status ? '1' : '0.2'}"></div>
+                        <div class="container-fluid">
+                            <div class="row text-center" ng-style="{opacity: crio_status ? '1' : '0.2'}">
+                                <div class="col-xs-4">
+                                    <div class="content-group">
+                                        <h5 class="text-semibold no-margin"><i class="icon-pulse2 position-left text-green-800"></i><span id="x-rms">{{xVibration}}</span></h5>
+                                        <span class="text-muted text-size-small">X RMS (ug)</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="content-group">
+                                        <h5 class="text-semibold no-margin"><i class="icon-pulse2 position-left text-orange-800"></i><span id="y-rms">{{yVibration}}</span></h5>
+                                        <span class="text-muted text-size-small">Y RMS (ug)</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <div class="content-group">
+                                        <h5 class="text-semibold no-margin"><i class="icon-pulse2 position-left text-blue-800"></i><span id="z-rms">{{zVibration}}</span></h5>
+                                        <span class="text-muted text-size-small">Z RMS (ug)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="content-group-sm" id="sound-tsc" ng-style="{opacity: crio_status ? '1' : '0.2'}"></div>
+                        <div class="container-fluid">
+                            <div class="row text-center" ng-style="{opacity: crio_status ? '1' : '0.2'}">
+                                <div class="col-xs-6">
+                                    <div class="content-group">
+                                        <h5 class="text-semibold no-margin"><i class="icon-pulse2 position-left text-violet-800"></i><span id="dba">{{soundDBA}}</span></h5>
+                                        <span class="text-muted text-size-small">RMS (dBA)</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="content-group">
+                                        <h5 class="text-semibold no-margin"><i class="icon-pulse2 position-left text-pink-800"></i><span id="db">{{soundDB}}</span></h5>
+                                        <span class="text-muted text-size-small">RMS (dB)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!--sensors-->
             </div>
-        </div> <!--status-->
+            <div class="col-lg-4">
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Health</h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
 
+                    <div class="panel-body">
+                        <div class="col-xs-6 text-center">
+                            <div class="content-group-sm svg-center position-relative" id="disk-space-remaining" ng-style="{opacity: crio_status ? '1' : '0.2'}"></div>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <div class="content-group-sm svg-center position-relative" id="battery-voltage"></div>
+                        </div>
+                    </div>
+                </div> <!--health-->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Status</h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body text-nowrap">
+                        <!--<div class="col-xs-6 col-md-6 col-lg-10 text-nowrap">-->
+                        <table class = "table" style="width:80%;margin-left:auto;margin-right:auto;">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <i class="icon-cube text-info" style="padding-right:10px;"></i>modem/gateway
+                                </td>
+                                <td>
+                                    <span class="badge" ng-class="{'bg-success':webrelay_status || crio_status,
+                                    'bg-danger-400':!webrelay_status && !crio_status}" ><i class="icon-station"></i></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="icon-cube text-info" style="padding-right:10px;"></i>webrelay
+                                </td>
+                                <td>
+                                    <span class="badge" ng-class="{'bg-success':webrelay_status,'bg-danger-400':!webrelay_status}">
+                                        <i class="icon-station"></i></span>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="icon-switch22 text-info" style="padding-right:10px;"></i>relay position
+                                </td>
+                                <td ng-style="{opacity: webrelay_status ? '1' : '0.2'}">
+                                    <span class="badge" ng-class="{'bg-info':webrelay_pos,'bg-danger-400':!webrelay_pos}">
+                                        <i ng-class="{'spinner2 spinner':!webrelay_status,
+                                         'icon-power-cord':(webrelay_status && !webrelay_pos),
+                                         'icon-switch2': (webrelay_status && webrelay_pos)}"></i></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="icon-cube text-info" style="padding-right:10px;"></i>cRIO
+                                </td>
+                                <td>
+                                    <span ng-style= "{opacity: !crio_status && webrelay_status && !webrelay_pos ? '0' : '1'}" class="badge bg-info"><i ng-class="{'icon-sync': (crio_status && crio_status_detailed=='Initializing'),
+                                    'icon-pause': (crio_status && crio_status_detailed=='Ready'),
+                                    'icon-mic2': (crio_status && crio_status_detailed=='PDR'),
+                                    'icon-spinner3 spinner': !crio_status}"></i></span>
+                                    <span ng-style="{opacity: (webrelay_status && webrelay_pos) || crio_status ? '1' : '0'}"
+                                          class="badge" ng-class="{'bg-success':(crio_status || !webrelay_status || !webrelay_pos),
+                                          'bg-danger-400':(!crio_status && webrelay_status && webrelay_pos)}"><i class="icon-station"></i></span>
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div> <!--status-->
+
+            </div>
+        </div>
     </div>
-</div>
-<!-- /simple panel -->
+    <!-- /simple panel -->
 
+    <div id="idle_modal" class="modal fade" style="display:none;">
+        <div class="modal-dialog modal-xs">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">taking a break...</h5>
+                </div>
 
-<!-- Table -->
-<!--<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">Basic table</h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="close"></a></li>
-            </ul>
+                <div class="modal-body" style="display:table;">
+
+                    <div class="icon-object border-slate-300 text-slate-300 position-left"><i class="icon-cup2"></i></div>
+                    <p style="display:table-cell;vertical-align:middle;padding:15px 15px 15px 15px;">you don't seem to be watching, so we've gone for coffee!</p>
+
+                </div>
+
+            </div>
         </div>
     </div>
 
-    <div class="panel-body">
-        Starter pages include the most basic components that may help you start your development process - basic grid example, panel, table and form layouts with standard components. Nothing extra.
-    </div>
+    <div id="modal_theme_warning" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h6 class="modal-title">Confirm</h6>
+                </div>
 
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>Eugene</td>
-                <td>Kopyov</td>
-                <td>@Kopyov</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>David</td>
-                <td>Grant</td>
-                <td>@David</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>James</td>
-                <td>Alexander</td>
-                <td>@Alex</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Franklin</td>
-                <td>Morrison</td>
-                <td>@Frank</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>-->
-<!-- /table -->
+                <div class="modal-body">
+                    <h6 class="text-semibold"><i class="position-left" ng-class="confirm_icon"></i>{{confirm_title}}</h6>
+                    <div ng-bind-html="confirm_text"></div>
 
+                </div>
 
-<!-- Grid -->
-<!--<div class="row">
-    <div class="col-md-6">
-
-        &lt;!&ndash; Horizontal form &ndash;&gt;
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Horizontal form</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="confirm_function();">Confirm</button>
                 </div>
             </div>
-
-            <div class="panel-body">
-                <form class="form-horizontal" action="#">
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Text input</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Password</label>
-                        <div class="col-lg-10">
-                            <input type="password" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Select</label>
-                        <div class="col-lg-10">
-                            <select name="select" class="form-control">
-                                <option value="opt1">Basic select</option>
-                                <option value="opt2">Option 2</option>
-                                <option value="opt3">Option 3</option>
-                                <option value="opt4">Option 4</option>
-                                <option value="opt5">Option 5</option>
-                                <option value="opt6">Option 6</option>
-                                <option value="opt7">Option 7</option>
-                                <option value="opt8">Option 8</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Textarea</label>
-                        <div class="col-lg-10">
-                            <textarea rows="5" cols="5" class="form-control" placeholder="Default textarea"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 position-right"></i></button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        &lt;!&ndash; /horizotal form &ndash;&gt;
-
-    </div>
-
-    <div class="col-md-6">
-
-        &lt;!&ndash; Vertical form &ndash;&gt;
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Vertical form</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="panel-body">
-                <form action="#">
-                    <div class="form-group">
-                        <label>Text input</label>
-                        <input type="text" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Select</label>
-                        <select name="select" class="form-control">
-                            <option value="opt1">Basic select</option>
-                            <option value="opt2">Option 2</option>
-                            <option value="opt3">Option 3</option>
-                            <option value="opt4">Option 4</option>
-                            <option value="opt5">Option 5</option>
-                            <option value="opt6">Option 6</option>
-                            <option value="opt7">Option 7</option>
-                            <option value="opt8">Option 8</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Textarea</label>
-                        <textarea rows="4" cols="4" class="form-control" placeholder="Default textarea"></textarea>
-                    </div>
-
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 position-right"></i></button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        &lt;!&ndash; /vertical form &ndash;&gt;
-
-    </div>
-</div>-->
-<!-- /grid -->
-
-<!--<div id="modal_mini" class="modal fade" style="display: none;">
-    <div class="modal-dialog modal-xs">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <div class="icon-object border-slate-300 text-slate-300"><i class="icon-cup2"></i></div><h5 class="modal-title">Taking a break?</h5>
-            </div>
-
-            <div class="modal-body">
-                <h6 class="text-semibold">Text in a modal</h6>
-                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-
-                <hr>
-
-                <h6 class="text-semibold">Another paragraph</h6>
-                <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
         </div>
     </div>
-</div>-->
 
-<!--<div id="modal_mini" class="modal fade" style="display: none;">
-    <div class="modal-dialog modal-xs">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">taking a break...</h5>
-            </div>
-
-            <div class="modal-body">
-
-
-
-                <div class="icon-object border-slate-300 text-slate-300 position-left" ><i class="icon-cup2"></i></div><p>you don't seem to be watching, so we're slacking off</p>
-
-            </div>
-
-        </div>
-    </div>
-</div>-->
-
-<div id="idle_modal" class="modal fade" style="display:none;">
-    <div class="modal-dialog modal-xs">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">taking a break...</h5>
-            </div>
-
-            <div class="modal-body" style="display:table;">
-
-                <div class="icon-object border-slate-300 text-slate-300 position-left"><i class="icon-cup2"></i></div>
-                <p style="display:table-cell;vertical-align:middle;padding:15px 15px 15px 15px;">you don't seem to be watching, so we've gone for coffee!</p>
-
-            </div>
-
-        </div>
-    </div>
 </div>
+
+
+
+
 
 <!-- Footer -->
 <div class="footer text-muted">

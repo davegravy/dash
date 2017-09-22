@@ -1,368 +1,355 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
+/* eslint max-len: ["error", 100] */
+/* global angular AWS AWSCognito location alert */
+
 angular.module('armsApp').factory('cognito', ['$q', '$http',
-    function($q, $http) {
+  function ($q, $http) {
+    const poolData = {
+      UserPoolId: 'us-east-1_C17D4qjgy', // Your user pool id here
+      ClientId: '493284o06dmr8c62cms5l9um21', // Your client id here
+    };
 
-        let _poolData = {
-            UserPoolId : 'us-east-1_C17D4qjgy', // Your user pool id here
-            ClientId : '493284o06dmr8c62cms5l9um21' // Your client id here
-        };
-
-        let _userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(_poolData);
-        let _testVar = {};
-        let _cognitoUser;
-        let _cognitoUserSession;
-        let _decodedIdToken;
-
+    const userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
+    // const testVar = {};
+    let cognitoUser;
+    let cognitoUserSession;
+    let decodedIdToken;
 
 
-        return{
+    return {
 
 
-            getUserLocal: function () {
+      getUserLocal() {
+        if (!cognitoUser) { cognitoUser = userPool.getCurrentUser(); }
+
+        if (cognitoUser) { return cognitoUser; }
+        return null;
+      },
+
+      getSession() {
+        console.log('getSession');
+        const deferred = $q.defer();
+
+        if (!this.getUserLocal()) {
+          deferred.resolve(null);
+          console.log('getSession: no cached cognitoUser');
+          return deferred.promise;
+        }
+        // this code path executed on browser refresh
+        if (!cognitoUserSession || !cognitoUserSession.isValid()) {
+          if (!cognitoUserSession) {
+            console.log('getSession: no cognitoUserSession');
+          } else if (!cognitoUserSession.isValid()) {
+            console.log('getSession: no valid cognitoUserSession');
+          }
+
+          cognitoUser.getSession((err, session) => {
+            if (err) {
+              console.log(`getSession Error:${err}`);
+              return deferred.reject(err);
+            }
+            console.log('getSession: cognitoUserSession fetched from cognito');
+            cognitoUserSession = session;
+            return deferred.resolve(cognitoUserSession);
+          });
+          return deferred.promise;
+        }
+
+        if (cognitoUserSession && cognitoUserSession.isValid()) {
+          // this code path executed on page change (not first load) or post-login
+          console.log('getSession: valid cognitoUserSession retrieved');
 
 
-
-                if (!_cognitoUser)
-                    _cognitoUser = _userPool.getCurrentUser();
-
-                if (_cognitoUser)
-                    return _cognitoUser;
-                else
-                    return null;
-            },
-
-            getSession: function () {
-                console.log("getSession");
-                let deferred = $q.defer();
-
-                if (!this.getUserLocal()) {
-                    deferred.resolve(null);
-                    console.log("getSession: no cached cognitoUser");
-                    return deferred.promise;
-                }
-                if (!_cognitoUserSession || !_cognitoUserSession.isValid()) {
-
-                    if (!_cognitoUserSession) {console.log("getSession: no cognitoUserSession");}
-                    else if (!_cognitoUserSession.isValid()) {console.log("getSession: no cognitoUserSession");}
-
-                    _cognitoUser.getSession(function(err,session) {
-
-                        if (err) {
-                            console.log("getSession Error:" + err);
-                            return deferred.reject(err);
-                        } else {
-                            console.log("getSession: cognitoUserSession fetched from cognito");
-                            _cognitoUserSession = session;
-                            deferred.resolve(_cognitoUserSession);
-                        }
-                    });
-                    return deferred.promise;
-                }
-
-                if (_cognitoUserSession && _cognitoUserSession.isValid()) {
-                    console.log("getSession: valid cognitoUserSession retrieved");
-                    deferred.resolve(_cognitoUserSession);
-                }
-                else
-                    console.log("getSession: could not get valid cognitoUserSession");
-                    deferred.resolve(null);
-
-                return deferred.promise;
-            },
+          /*                    AWS.config.credentials.get(function(err) {
+                        if (err) console.log('credget error: ' + err);
+                        else {console.log("credget success");
+                        console.log(AWS.config.credentials);}
+                    }); */
 
 
-            isSessValid: function () {
-                if (!_cognitoUserSession)
-                    return false;
-                else
-                    return _cognitoUserSession.isValid();
-            },
+          deferred.resolve(cognitoUserSession);
+        } else { console.log('getSession: could not get valid cognitoUserSession'); }
+        deferred.resolve(null);
+
+        return deferred.promise;
+      },
 
 
-            getToken: function (use) {
-                //console.log("getToken");
-                if (!_cognitoUserSession || !use)
-                    return null;
-                else {
-                    if (use === "id")
-                        return _cognitoUserSession.getIdToken().getJwtToken();
-
-                    if (use === 'access')
-                        return _cognitoUserSession.getAccessToken().getJwtToken();
-
-                    return null;
-                }
-
-            },
-
-            getDecodedToken: function(use) {
-                //send jwt to backend, receive decoded token (or forbidden)
-                //TODO separate into own service
+      isSessValid() {
+        if (!cognitoUserSession) { return false; }
+        return cognitoUserSession.isValid();
+      },
 
 
-                //console.log("getDecodedToken");
+      getToken(use) {
+        // console.log("getToken");
+        if (!cognitoUserSession || !use) { return null; }
 
-                if (_decodedIdToken) { //use RAM cache if we have it
-                    //console.log("found decoded token in memory");
-                    return $q.when(_decodedIdToken);
+        if (use === 'id') { return cognitoUserSession.getIdToken().getJwtToken(); }
 
-                }
+        if (use === 'access') { return cognitoUserSession.getAccessToken().getJwtToken(); }
 
-                let token = this.getToken(use);
+        return null;
+      },
 
-
-                if (!token) {
-                    console.log("getDecodedToken Error");
-                    return $q.reject('no jwt token');
-                } else {
+      getDecodedToken(use) {
+        // send jwt to backend, receive decoded token (or forbidden)
+        // TODO separate into own service
 
 
-                    let formData = "jwt_token=" + token;
-                    //console.log("formData:" + formData);
-                    if (use !== undefined) {
-                        formData += "&use=" + use;
-                    }
-                    //if (scope !== undefined) {formData += "&scope=" + scope;}
+        // console.log("getDecodedToken");
 
-                    /*let formData = {};
+        if (decodedIdToken) { // use RAM cache if we have it
+          // console.log("found decoded token in memory");
+
+          return $q.when(decodedIdToken);
+        }
+
+        const token = this.getToken(use);
+
+
+        if (!token) {
+          console.log('getDecodedToken Error');
+          return $q.reject('no jwt token');
+        }
+
+
+        let formData = `jwt_token=${token}`;
+        // console.log("formData:" + formData);
+        if (use !== undefined) {
+          formData += `&use=${use}`;
+        }
+        // if (scope !== undefined) {formData += "&scope=" + scope;}
+
+        /* let formData = {};
                      formData.jwt_token = identity.token;
                      if (use !== undefined) {formData.use = use;}
                      if (scope !== undefined) {formData.scope = scope;}
-                     console.log(JSON.stringify(formData));*/
+                     console.log(JSON.stringify(formData)); */
 
-                    return $http({
-                        method: 'POST',
-                        url: 'https://' + location.host + '/proxy/verifyToken',
-                        data: formData,
-                        timeout: 5000,
-                        responseType: 'text',
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                    })
-                        .then(function (response) {
-
-                            //  identity.lastVerifiedTime = (new Date()).getTime(); //TODO: Move all lastverified time manip here or principal
-                            //console.log("DECODED TOKEN: " + JSON.stringify(response.data)); //TODO: backend still returns success even with bad POST called
-                            //identity.decoded=data;
-                            console.log("SUCCESSFULLY VERIFIED ID");
-                            _decodedIdToken = response.data;
-                            return $q.when(response.data);
-
-                        })
-                        .catch(function (error) {
-                            console.log('INVALID TOKEN');
-                            console.log('Error getting decoded token: ' + error.data);
-                            console.log('Error status code: ' + error.status);
-                            //TODO: notify view about why
-                            return $q.reject(error.status);
-                        });
-                }
+        return $http({
+          method: 'POST',
+          url: `https://${location.host}/proxy/verifyToken`,
+          data: formData,
+          timeout: 5000,
+          responseType: 'text',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        })
+          .then((response) => {
+            console.log('SUCCESSFULLY VERIFIED ID');
+            decodedIdToken = response.data;
+            return $q.when(response.data);
+          })
+          .catch((error) => {
+            console.log('INVALID TOKEN');
+            console.log(`Error getting decoded token: ${error.data}`);
+            console.log(`Error status code: ${error.status}`);
+            // TODO: notify view about why
+            return $q.reject(error.status);
+          });
+      },
 
 
+      getRoles() {
+        // get decoded ID token, return
+        // console.log("getRoles");
+
+
+        return this.getDecodedToken('id')
+          .then(
+            data =>
+              // console.log("received decoded token: " + JSON.stringify(data));
+              $q.when(data['cognito:roles']),
+          )
+          .catch(
+            (error) => {
+              console.log(`getRoles Error: ${error}`);
+              return $q.when(null);
             },
+          );
+      },
+
+      isInRole(rolesRequired) {
+        return this.getRoles().then(
+          (rolesAssigned) => {
+            if (!rolesAssigned) { return $q.when(false); }
+            return $q.when(rolesAssigned.indexOf(rolesRequired) !== -1);
+          }).catch(
+          (error) => {
+            console.log('No roles available');
+            return $q.reject(error);
+          });
+      },
+
+      isInAnyRole(rolesRequired) {
+        // console.log ("isInAnyRole:" + JSON.stringify(rolesRequired));
+
+        return this.getRoles().then(
+          (rolesAssigned) => { // don't actually need rolesAssigned
+            if (!rolesAssigned && rolesRequired.length > 0) {
+              return $q.when(false);
+            }
+
+            // console.log ("successfully retrieved roles");
+            const promises = [];
+
+            for (let i = 0; i < rolesRequired.length; i += 1) {
+              promises.push(this.isInRole(rolesRequired[i]));
+            }
+
+            return $q.all(promises)
+              .then(
+                (values) => {
+                  for (let i = 0; i < promises.length; i += 1) {
+                    if (values[i]) {
+                      // console.log("found match");
+                      return $q.when(true);
+                    }
+                  }
+                  console.log('found no matches');
+                  return $q.when(false);
+                })
+              .catch(
+                (errors) => {
+                  // console.log("isInAnyRole: isInRole callback");
+                  console.log(JSON.stringify(errors));
+                  return $q.reject(errors);
+                });
+          }).catch(
+          (err) => {
+            console.log('getRoles Error2');
+            return $q.reject(err);
+          });
+      },
 
 
+      signOut() {
+        if (this.getUserLocal()) {
+          cognitoUser.signOut();
+          // console.log("signOut: cognito sdk .signOut()");
+        }
 
-            getRoles: function () {
-                //get decoded ID token, return
-                //console.log("getRoles");
-
-
-                return this.getDecodedToken('id')
-                    .then(
-                        function(data){
-                            //console.log("received decoded token: " + JSON.stringify(data));
-                            return $q.when(data['cognito:roles']);
-                        })
-                    .catch(
-                        function(error){
-                            console.log("getRoles Error: " + error);
-                            return $q.when(null);
-                        }
-                    );
-
-            },
-
-            isInRole: function(rolesRequired){
-
-                return this.getRoles().then(
-                    function(rolesAssigned){
-                        if (!rolesAssigned)
-                            return $q.when(false);
-                        else
-                            return $q.when(rolesAssigned.indexOf(rolesRequired) !== -1);
-                    }).catch(
-                    function(error){
-                        console.log("No roles available");
-                        return $q.reject(error);
-                    });
-
-            },
-
-            isInAnyRole: function(rolesRequired){
-                //console.log ("isInAnyRole:" + JSON.stringify(rolesRequired));
-
-                return this.getRoles().then(
-                    (rolesAssigned) => { //don't actually need rolesAssigned
-
-                        if (!rolesAssigned && rolesRequired.length > 0){
-                            return $q.when(false);
-                        }
-
-                        //console.log ("successfully retrieved roles");
-                        let promises =[];
-
-                        for (let i = 0; i < rolesRequired.length; i++) {
-                            promises.push(this.isInRole(rolesRequired[i]));
-                        }
-
-                        return $q.all(promises)
-                            .then(
-                                (values)=>{
-                                    for (let i = 0; i < promises.length; i++) {
-                                        if (values[i]) {
-                                            //console.log("found match");
-                                            return $q.when(true);
-                                        }
-                                    }
-                                    console.log("found no matches");
-                                    return $q.when(false);
-                                })
-                            .catch(
-                                (errors)=>{
-                                    //console.log("isInAnyRole: isInRole callback");
-                                    console.log(JSON.stringify(errors));
-                                    return $q.reject(errors);
-                                });
-
-                    }).catch(
-                    function(err){
-                        console.log("getRoles Error2");
-                        return $q.reject(err);
-                    });
+        // console.log("signOut: clearing ram cache");
+        cognitoUserSession = null;
+        decodedIdToken = null;
 
 
-            },
+        if (cognitoUserSession) {
+          alert('sign-out FAILED');
+        }
 
-
-            signOut: function () {
-                if (this.getUserLocal()) {
-                    _cognitoUser.signOut();
-                    //console.log("signOut: cognito sdk .signOut()");
-                }
-
-                //console.log("signOut: clearing ram cache");
-                _cognitoUserSession = null;
-                _decodedIdToken = null;
-
-
-                if (_cognitoUserSession) {
-                    alert("sign-out FAILED");
-                }
-
-                /*                this.getSession().then(function(session){
+        /*                this.getSession().then(function(session){
                  if (session)
                  console.log("signout failed, session still available");
                  }) */
+      },
 
-            },
+      signIn(login, password) {
+        const deferred = $q.defer();
 
-            signIn: function (login, password) {
+        // check already signed in, else:
 
+        const userData = {
+          Username: login,
+          Pool: userPool,
+        };
 
-                let deferred = $q.defer();
+        const authenticationData = {
+          Username: login,
+          Password: password,
+        };
 
-                // check already signed in, else:
+        const authenticationDetails =
+          new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
 
-                let userData = {
-                    Username: login,
-                    Pool: _userPool
-                };
-
-                let authenticationData = {
-                    Username: login,
-                    Password: password
-                };
-
-                let authenticationDetails = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
-
-                _cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
-                _cognitoUser.authenticateUser(authenticationDetails,
-                    {
-                        onSuccess: function(result) {
-
-
-
-                            /*                           _cognitoUser.getUserAttributes(function(err,result){
+        cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+        cognitoUser.authenticateUser(authenticationDetails,
+          {
+            onSuccess(result) {
+              /*                           cognitoUser.getUserAttributes(function(err,result){
                              for (i = 0; i < result.length; i++) {
                              console.log(JSON.stringify(result));
                              }
-                             });*/
+                             }); */
 
-                            //console.log(_cognitoUser.getUsername());
-                            _cognitoUserSession = result;
+              // console.log(cognitoUser.getUsername());
+              cognitoUserSession = result;
 
-                            deferred.resolve(result);},
-
-
-                        onFailure: function(error) {
-                            alert(error);
-                            deferred.reject(error);},
-
-                        newPasswordRequired: function(userAttributes, requiredAttributes) {
-                            // User was signed up by an admin and must provide new
-                            // password and required attributes, if any, to complete
-                            // authentication.
-
-                            // the api doesn't accept this field back
-                            delete userAttributes.email_verified;
-
-                            // Get these details and call
-                            let newPassword = "vI0letrose3";
-                            _cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, this);
-                        }
-
-                    });
-                return deferred.promise;
+              deferred.resolve(result);
             },
 
-            getUsername: function (){
-                return _cognitoUser.getUsername()
+
+            onFailure(error) {
+              alert(error);
+              deferred.reject(error);
             },
 
-            enableTrackDevice: function () {
+            newPasswordRequired(userAttributes, requiredAttributes) {
+              // User was signed up by an admin and must provide new
+              // password and required attributes, if any, to complete
+              // authentication.
 
-                //console.log('enableTrackDevice');
-                if (_cognitoUser) {
-                    _cognitoUser.setDeviceStatusRemembered({
-                        onSuccess: function (result) {
-                            //console.log('call result: ' + result);
-                        },
+              // the api doesn't accept this field back
+              delete userAttributes.email_verified;
 
-                        onFailure: function (err) {
-                            alert(err);
-                        }
-                    });
-                }
+              // Get these details and call
+              const newPassword = 'vI0letrose3';
+              cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, this);
             },
 
-            disableTrackDevice: function () {
+          });
+        return deferred.promise;
+      },
 
-                //console.log('disableTrackDevice');
+      getUsername() {
+        return cognitoUser.getUsername();
+      },
 
-                if (_cognitoUser) {
-                    _cognitoUser.setDeviceStatusNotRemembered({
-                        onSuccess: function (result) {
-                            //console.log('call result: ' + result);
-                        },
+      setAWSCredentials() {
+        if (!cognitoUserSession || !cognitoUserSession.isValid()) return false;
 
-                        onFailure: function(err) {
-                            alert(err);
-                        }
-                    });
-                }
-            }
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+          IdentityPoolId: 'us-east-1:7166f2d1-bff6-4ca9-b286-acc36fb9c04a',
+          Logins: { 'cognito-idp.us-east-1.amazonaws.com/us-east-1_C17D4qjgy':
+            cognitoUserSession.getIdToken().getJwtToken() },
+        });
+
+        AWS.config.region = 'us-east-1';
+
+        return true;
+      },
+
+      enableTrackDevice() {
+        // console.log('enableTrackDevice');
+        if (cognitoUser) {
+          cognitoUser.setDeviceStatusRemembered({
+            onSuccess(result) {
+              console.log(`call result: ${result}`);
+            },
+
+            onFailure(err) {
+              alert(err);
+            },
+          });
+        }
+      },
+
+      disableTrackDevice() {
+        // console.log('disableTrackDevice');
+
+        if (cognitoUser) {
+          cognitoUser.setDeviceStatusNotRemembered({
+            onSuccess(result) {
+              console.log(`call result: ${result}`);
+            },
+
+            onFailure(err) {
+              alert(err);
+            },
+          });
+        }
+      },
 
 
-
-
-
-        }}]);
+    };
+  }]);
